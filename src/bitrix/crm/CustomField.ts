@@ -1,7 +1,7 @@
-import { BitrixBuilder } from "./BitrixBuilder.js";
+import { BitrixBuilder } from "../BitrixBuilder.js";
 
 export class CustomField extends BitrixBuilder {
-  protected prefixDefault: string | null = "user";
+  protected prefixDefault: string | null = "crm.userfield.fields";
 
   protected static fieldTypes: string[] = [
     "string",
@@ -163,5 +163,14 @@ export class CustomField extends BitrixBuilder {
 
   async getFieldSettings(type: string) {
     return await this.instance.request("crm.userfield.settings.fields", { type: type });
+  }
+
+  getFieldName() {
+    return this.getData()?.FIELD_NAME || undefined;
+  }
+
+  async collect(params: any, method: string | null = null, collectField: string | null = "result"): Promise<any | this> {
+    this.setFilterItem("LANG", "br");
+    return await super.collect(params, method, collectField);
   }
 }

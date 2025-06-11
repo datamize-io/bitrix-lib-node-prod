@@ -3,6 +3,9 @@ export * from "./BitrixBuilder.js";
 
 // CRM Schema
 export * from "./crm/Pipeline.js";
+export * from "./crm/Activity.js";
+export * from "./crm/Comment.js";
+export * from "./crm/Duplicate.js";
 
 // CRM Entities
 export * from "./crm/Contact.js";
@@ -15,3 +18,6 @@ export * from "./crm/Product.js";
 export * from "./crm/DealField.js";
 export * from "./crm/ContactField.js";
 export * from "./crm/LeadField.js";
+
+// Other
+export * from "./crm/Item.js";
