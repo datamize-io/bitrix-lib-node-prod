@@ -1,4 +1,6 @@
 .env
 node_modules/
 src/smartlink/*
-dist/
+dist/smartlink
+dist/smartlink/*
+dist/smartLinkTests.*
