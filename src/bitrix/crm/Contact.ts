@@ -37,6 +37,14 @@ export class Contact extends BitrixBuilder {
     return this;
   }
 
+  // Atribuir ORIGIN_ID
+
+  // getChats()
+
+  // Finish chats
+
+  // Restart chats
+
   async getDeals() {
     return await this.instance.entity(Deal).collect({
       filter: { CONTACT_ID: this.getData().ID },
@@ -47,4 +55,12 @@ export class Contact extends BitrixBuilder {
     const deals = await this.getDeals();
     return deals.getData().filter((deal: Deal) => deal.getData().CLOSED === "N");
   }
+
+  // Método para trazer duplicados
+
+  // Método para adicionar comentários
+
+  // Método para adicionar tarefas
+
+  // Método para adicionar atividades
 }

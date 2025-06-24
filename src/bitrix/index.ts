@@ -1,3 +1,5 @@
+import * as b24jssdk from "@bitrix24/b24jssdk";
+export { b24jssdk };
 export * from "./BitrixInstance.js";
 export * from "./BitrixBuilder.js";
 

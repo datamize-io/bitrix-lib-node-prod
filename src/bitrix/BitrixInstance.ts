@@ -4,9 +4,10 @@ export class BitrixInstance {
   private client: B24Hook;
   private paramsToInject: Record<string, any> = {};
 
-  constructor(secretObject: B24HookParams) {
+  constructor(secretObject: B24HookParams | B24Hook) {
     console.log(secretObject);
-    this.client = new B24Hook(secretObject);
+
+    this.client = secretObject instanceof B24Hook ? secretObject : new B24Hook(secretObject);
   }
 
   entity(Entity: any): any {
