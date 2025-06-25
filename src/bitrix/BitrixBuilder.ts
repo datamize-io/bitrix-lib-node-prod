@@ -170,6 +170,7 @@ export class BitrixBuilder {
 
       let data = result.getData();
 
+      console.log(collectField, data);
       if (collectField) {
         if (collectField.includes(".")) {
           const collectFields = collectField.split(".");
@@ -184,6 +185,13 @@ export class BitrixBuilder {
         } else {
           data = data[collectField];
         }
+      }
+
+      if (!Array.isArray(data)) {
+        console.log("É array!");
+        data = this.data ? [data] : [];
+      } else {
+        console.log(collectField, data);
       }
 
       this.data = data.map((collectItem: any) => {

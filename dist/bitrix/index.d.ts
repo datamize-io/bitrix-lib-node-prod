@@ -15,3 +15,5 @@ export * from "./crm/DealField.js";
 export * from "./crm/ContactField.js";
 export * from "./crm/LeadField.js";
 export * from "./crm/Item.js";
+export * from "./im/Connector.js";
+export * from "./im/imconnector-register.interface.js";

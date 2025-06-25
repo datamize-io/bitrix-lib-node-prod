@@ -23,3 +23,7 @@ export * from "./crm/LeadField.js";
 
 // Other
 export * from "./crm/Item.js";
+
+//IM
+export * from "./im/Connector.js";
+export * from "./im/imconnector-register.interface.js";
