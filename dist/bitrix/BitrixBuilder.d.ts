@@ -15,7 +15,7 @@ export declare class BitrixBuilder {
     setFilterItems(filterByFields: any): this;
     setFilterItem(filterByField: string, valueFromFilter: any): this;
     setDataItem(field: string, value: any): this;
-    setData(data: any): void;
+    setData(data: any): this;
     getData(): any;
     setId(id: string | number): this;
     setDefaultParams(): this;
@@ -26,6 +26,6 @@ export declare class BitrixBuilder {
     insert(params: any, method?: string | null): Promise<any>;
     save(params?: any | null, method?: string | null): Promise<any>;
     update(params?: any | null, method?: string | null): Promise<any>;
-    collect(params: any, method?: string | null, collectField?: string | null): Promise<any | this>;
+    collect(params?: any | null, method?: string | null, collectField?: string | null): Promise<any | this>;
     delete(id: number | string | null): Promise<void>;
 }

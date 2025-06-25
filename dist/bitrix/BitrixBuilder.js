@@ -30,12 +30,15 @@ export class BitrixBuilder {
         return this;
     }
     setDataItem(field, value) {
-        this.data = this.data || {};
+        this.data = this.getData() || {};
+        this.changedData = this.changedData || {};
         this.data[field] = value;
+        this.changedData[field] = value;
         return this;
     }
     setData(data) {
         this.data = data;
+        return this;
     }
     getData() {
         return this.data;
@@ -52,10 +55,13 @@ export class BitrixBuilder {
         return this;
     }
     setField(field, value) {
+        console.log("Setting field %s value %s", field, value);
+        // Schema
         this.changedData = this.changedData || {};
         this.data = this.data || {};
         this.data.fields = this.data.fields || {};
         this.changedData.fields = this.changedData.fields || {};
+        // Data
         this.data.fields[field] = value;
         this.changedData.fields[field] = value;
         return this;
@@ -130,7 +136,7 @@ export class BitrixBuilder {
         method = method || this.prefixDefault + ".update";
         return this.instance.request(method, params);
     }
-    async collect(params, method = null, collectField = "result") {
+    async collect(params = null, method = null, collectField = "result") {
         this.setDefaultParams();
         method = method || this.prefixDefault + ".list";
         params = params || {};
@@ -141,7 +147,6 @@ export class BitrixBuilder {
             const instanceClass = Object.getPrototypeOf(this).constructor;
             const instance = this.instance;
             let data = result.getData();
-            console.log(collectField, data);
             if (collectField) {
                 if (collectField.includes(".")) {
                     const collectFields = collectField.split(".");
@@ -159,11 +164,7 @@ export class BitrixBuilder {
                 }
             }
             if (!Array.isArray(data)) {
-                console.log("É array!");
                 data = this.data ? [data] : [];
-            }
-            else {
-                console.log(collectField, data);
             }
             this.data = data.map((collectItem) => {
                 const newEntity = new instanceClass(instance);

@@ -1,6 +1,6 @@
-import { BitrixBuilder } from "../BitrixBuilder.js";
-export declare class Lead extends BitrixBuilder {
-    protected prefixDefault: string | null;
+import { Item } from "./Item.js";
+export declare class Lead extends Item {
+    protected defaultParams: Record<string, any | null>;
     setContact(value: any): Lead;
     setContacts(value: any[]): Lead;
     setName(value: any): Lead;
@@ -14,4 +14,6 @@ export declare class Lead extends BitrixBuilder {
     setTrack(utms: any): Lead;
     setField(field: string, value: any): this;
     setUser(value: any): Lead;
+    getByStageId(stageId: string): Promise<any>;
+    moveToStage(stageId: string, object: object): Promise<object[]>;
 }

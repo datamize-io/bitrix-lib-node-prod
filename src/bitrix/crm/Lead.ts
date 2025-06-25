@@ -1,69 +1,69 @@
-import { BitrixBuilder } from "../BitrixBuilder.js";
+import { Item } from "./Item.js";
 
-export class Lead extends BitrixBuilder {
-  protected prefixDefault: string | null = "crm.lead";
+export class Lead extends Item {
+  protected defaultParams: Record<string, any | null> = {
+    entityTypeId: 1,
+    useOriginalUfNames: "Y",
+    select: ["*"],
+  };
 
   setContact(value: any): Lead {
     if (!value) return this;
     value = value.data ? value.data.ID : value;
-    this.setField("CONTACT_ID", value);
+    this.setField("contactId", value);
     return this;
   }
 
   setContacts(value: any[]): Lead {
     if (!value) return this;
     value = value.map((v) => (typeof v === "object" ? v.data.ID : v));
-    this.setField("CONTACT_IDS", value);
+    this.setField("contactIds", value);
     return this;
   }
 
   setName(value: any): Lead {
     if (!value) return this;
-    this.setField("TITLE", value);
+    this.setField("title", value);
     return this;
   }
 
   setPipeline(value: any): Lead {
     if (!value) return this;
     value = value.data ? value.data.ID : value;
-    this.setField("CATEGORY_ID", value);
+    this.setField("categoryId", value);
     return this;
   }
 
   setStage(value: any = null): Lead {
     if (!value) return this;
 
-    if (value.data?.CATEGORY_ID) {
-      return this.setPipeline(value.data.CATEGORY_ID).setStage(value.data.STATUS_ID);
-    }
-
     value = value.data ? value.data.STATUS_ID : value;
-    this.setField("STAGE_ID", value);
+    this.setField("stageId", value);
     return this;
   }
 
   setValue(value: any, currency: string = "BRL"): Lead {
     if (!value) return this;
     this.setCurrency(currency);
-    this.setField("OPPORTUNITY", value);
+    this.setField("opportunity", value);
     return this;
   }
 
-  setCurrency(value = "BRL"): Lead {
+  setCurrency(value: string = "BRL"): Lead {
     if (!value) return this;
-    this.setField("CURRENCY_ID", value);
+    this.setField("currencyId", value);
     return this;
   }
 
-  setStatus(value = true): Lead {
+  setStatus(value: boolean = true): Lead {
     if (value === undefined || value === null) return this;
-    this.setField("OPENED", value ? "Y" : "N");
+    this.setField("opened", value ? "Y" : "N");
     return this;
   }
 
   setOriginId(value: any): Lead {
     if (!value) return this;
-    this.setField("ORIGIN_ID", value);
+    this.setField("originId", value);
     return this;
   }
 
@@ -79,25 +79,41 @@ export class Lead extends BitrixBuilder {
   setTrack(utms: any): Lead {
     if (!utms) return this;
     const { utm_campaign, utm_source, utm_medium, utm_content, utm_term } = utms;
-    this.setField("UTM_CAMPAIGN", utm_campaign);
-    this.setField("UTM_SOURCE", utm_source);
-    this.setField("UTM_MEDIUM", utm_medium);
-    this.setField("UTM_CONTENT", utm_content);
-    this.setField("UTM_TERM", utm_term);
+    this.setField("utmCampaign", utm_campaign);
+    this.setField("utmSource", utm_source);
+    this.setField("utmMedium", utm_medium);
+    this.setField("utmContent", utm_content);
+    this.setField("utmTerm", utm_term);
     return this;
   }
 
   setField(field: string, value: any): this {
     if (value === undefined || value === null) return this;
-    const fullField = field.startsWith("UF_CRM_") || field.includes("UF_CRM") ? field : "UF_CRM_" + field;
-    this.getData()[fullField] = value;
+    const fullField = field.startsWith("UF_CRM_") || !field.startsWith("UF_CRM") ? field : "UF_CRM_" + field;
+    super.setField(fullField, value);
     return this;
   }
 
   setUser(value: any): Lead {
     if (!value) return this;
     value = value.data ? value.data.ID : value;
-    this.setField("ASSIGNED_BY_ID", value);
+    this.setField("assignedById", value);
     return this;
+  }
+
+  getByStageId(stageId: string) {
+    return this.setFilterItem("stageId", stageId).collect();
+  }
+
+  async moveToStage(stageId: string, object: object) {
+    const LeadsToMove = !Array.isArray(object) ? [object] : object;
+    const responses: Array<object> = [];
+    LeadsToMove.forEach(async (Lead) => {
+      Lead.setField("STAGE_ID", stageId);
+      const response = await Lead.setField("categoryId", 22).setField("stageId", stageId).update();
+      responses.push(response);
+    });
+
+    return responses;
   }
 }

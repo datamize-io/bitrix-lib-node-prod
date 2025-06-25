@@ -1,39 +1,44 @@
-import { BitrixBuilder } from "../BitrixBuilder.js";
+import { Item } from "./Item.js";
 import { Deal } from "./Deal.js";
 import { Duplicate } from "./Duplicate.js";
 
-export class Contact extends BitrixBuilder {
-  protected prefixDefault: string | null = "crm.contact";
+export class Contact extends Item {
+  protected defaultParams: Record<string, any | null> = {
+    entityTypeId: 2,
+    useOriginalUfNames: "Y",
+    select: ["*"],
+  };
 
-  setEmail(value: any, type: string = "WORK") {
-    const data = this.getData();
-    const emails = data.EMAIL || [];
-    emails.push({ VALUE: value, VALUE_TYPE: type.toUpperCase() });
-    this.setField("EMAIL", emails);
+  setFmField(typeId: "PHONE" | "EMAIL" | "WEB" | "IM" | "LINK", valueType: string, value: string, id?: string) {
+    this.data.fm = this.data.fm || {};
+    const sortNumber = Object.keys(this.data.fm).length;
+    this.data.fm[sortNumber] = { id, value, valueType, typeId };
     return this;
   }
 
-  setPhone(value: any, type: string = "WORK") {
-    const data = this.getData();
-    const phones = data.PHONE || [];
-    phones.push({ VALUE: value, VALUE_TYPE: type.toUpperCase() });
-    this.setField("PHONE", phones);
+  setEmail(value: string, type: "WORK" | "HOME" | "MAILING" | "OTHER") {
+    this.setFmField("EMAIL", type, value);
+    return this;
+  }
+
+  setPhone(value: any, type: "WORK" | "MOBILE" | "FAX" | "HOME" | "PAGER" | "MAILING" | "OTHER") {
+    this.setFmField("PHONE", type, value);
     return this;
   }
 
   setName(value: any) {
-    this.setField("NAME", value);
+    this.setField("name", value);
     return this;
   }
 
   setLastName(value: any) {
-    this.setField("LAST_NAME", value);
+    this.setField("lastName", value);
     return this;
   }
 
   setUser(value: any) {
     const userId = typeof value === "object" ? value.getData().ID : value;
-    this.setField("ASSIGNED_BY_ID", userId);
+    this.setField("assignedById", userId);
     return this;
   }
 
@@ -47,13 +52,13 @@ export class Contact extends BitrixBuilder {
 
   async getDeals() {
     return await this.instance.entity(Deal).collect({
-      filter: { CONTACT_ID: this.getData().ID },
+      filter: { contactId: this.getData().ID },
     });
   }
 
   async getOpenedDeals() {
     const deals = await this.getDeals();
-    return deals.getData().filter((deal: Deal) => deal.getData().CLOSED === "N");
+    return deals.getData().filter((deal: Deal) => deal.getData().closed === "N");
   }
 
   // Método para trazer duplicados

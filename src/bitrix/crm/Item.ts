@@ -4,6 +4,7 @@ export class Item extends BitrixBuilder {
   protected prefixDefault: string | null = "crm.item";
   protected defaultParams: Record<string, any | null> = {
     entityTypeId: null,
+    select: ["*"],
   };
 
   setEntityTypeId(entityTypeId: number): this {

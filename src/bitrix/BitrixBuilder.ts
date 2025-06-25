@@ -41,13 +41,17 @@ export class BitrixBuilder {
   }
 
   setDataItem(field: string, value: any): this {
-    this.data = this.data || {};
+    this.data = this.getData() || {};
+    this.changedData = this.changedData || {};
+
     this.data[field] = value;
+    this.changedData[field] = value;
     return this;
   }
 
-  setData(data: any): void {
+  setData(data: any): this {
     this.data = data;
+    return this;
   }
 
   getData(): any {
@@ -69,10 +73,14 @@ export class BitrixBuilder {
   }
 
   setField(field: string, value: any): this {
+    console.log("Setting field %s value %s", field, value);
+    // Schema
     this.changedData = this.changedData || {};
     this.data = this.data || {};
     this.data.fields = this.data.fields || {};
     this.changedData.fields = this.changedData.fields || {};
+
+    // Data
     this.data.fields[field] = value;
     this.changedData.fields[field] = value;
     return this;
@@ -154,7 +162,7 @@ export class BitrixBuilder {
     return this.instance.request(method, params);
   }
 
-  async collect(params: any, method: string | null = null, collectField: string | null = "result"): Promise<any | this> {
+  async collect(params: any | null = null, method: string | null = null, collectField: string | null = "result"): Promise<any | this> {
     this.setDefaultParams();
     method = method || this.prefixDefault + ".list";
 
@@ -169,8 +177,6 @@ export class BitrixBuilder {
       const instance = this.instance;
 
       let data = result.getData();
-
-      console.log(collectField, data);
       if (collectField) {
         if (collectField.includes(".")) {
           const collectFields = collectField.split(".");
@@ -188,10 +194,7 @@ export class BitrixBuilder {
       }
 
       if (!Array.isArray(data)) {
-        console.log("É array!");
         data = this.data ? [data] : [];
-      } else {
-        console.log(collectField, data);
       }
 
       this.data = data.map((collectItem: any) => {
