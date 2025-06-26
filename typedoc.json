@@ -1,5 +1,5 @@
 {
-  "entryPoints": ["src/bitrix"],
+  "entryPoints": ["src/bitrix/"],
   "entryPointStrategy": "expand",
   "out": "docs",
   "excludePrivate": true,

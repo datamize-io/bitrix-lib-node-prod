@@ -14,19 +14,19 @@ program
         process.exit(1);
     }
     const pascal = name.charAt(0).toUpperCase() + name.slice(1);
-    const entityDir = path.join("src", "bitrix", module);
+    const entityDir = path.join("src", "bitrix", "models", module);
     const builderDir = path.join("src", "bitrix", "builders", module);
     const interfaceDir = path.join("src", "bitrix", "interfaces", module);
     const builderPath = path.join(builderDir, `${pascal}Builder.builder.ts`);
     const interfacePath = path.join(interfaceDir, `${pascal}Interface.interface.ts`);
     const entityPath = path.join(entityDir, `${pascal}.ts`);
-    // Caminho dinâmico do BitrixBuilder
+    // Ajuste para imports (usando .ts porque o TS é fonte)
     const interfaceImportPath = path
-        .relative(entityDir, path.join("src", "bitrix", "interfaces", module, `${pascal}Interface.interface.js`))
+        .relative(entityDir, path.join("src", "bitrix", "interfaces", module, `${pascal}Interface.interface.ts`))
         .replace(/\\/g, "/");
-    const builderImportRelativePath = `../builders/${module}/${pascal}Builder.builder.js`;
+    const builderImportRelativePath = `../builders/${module}/${pascal}Builder.builder.ts`;
     const builderContent = `
-import { BitrixBuilder } from "../BitrixBuilder.builder.js";
+import { BitrixBuilder } from "../BitrixBuilder.builder.ts";
 import { ${pascal}Interface } from "../${interfaceImportPath}";
 
 export abstract class ${pascal}Builder extends BitrixBuilder implements ${pascal}Interface {
@@ -54,30 +54,49 @@ export class ${pascal} extends ${pascal}Builder implements ${pascal}Interface {
         fs.writeFileSync(filePath, content.trimStart());
         console.log(`✅ Arquivo criado: ${filePath}`);
     }
+    // Criação dos diretórios
     fs.mkdirSync(entityDir, { recursive: true });
     fs.mkdirSync(builderDir, { recursive: true });
     fs.mkdirSync(interfaceDir, { recursive: true });
     writeIfNotExists(builderPath, builderContent);
     writeIfNotExists(interfacePath, interfaceContent);
     writeIfNotExists(entityPath, entityContent);
-    // Atualizar index.ts
-    const exportLine = `export * from "./${module}/${pascal}.js";`;
-    const indexPath = path.join("src", "bitrix", "index.ts");
-    if (!fs.existsSync(indexPath)) {
-        fs.writeFileSync(indexPath, `${exportLine}\n`);
-        console.log(`📄 Criado index.ts com exportação inicial.`);
+    // Atualiza index.ts do módulo (ex: src/bitrix/crm/index.ts)
+    const moduleIndexPath = path.join(entityDir, "index.ts");
+    const exportEntityLine = `export * from "./${pascal}.js";`;
+    if (!fs.existsSync(moduleIndexPath)) {
+        fs.writeFileSync(moduleIndexPath, exportEntityLine + "\n");
+        console.log(`📄 Criado index.ts no módulo ${module} com exportação inicial.`);
     }
     else {
-        const indexContent = fs.readFileSync(indexPath, "utf8");
-        const lines = indexContent.split("\n").map((l) => l.trim());
-        if (!lines.includes(exportLine)) {
-            fs.appendFileSync(indexPath, `${exportLine}\n`);
-            console.log(`➕ Export adicionado ao index.ts: ${exportLine}`);
+        const moduleIndexContent = fs.readFileSync(moduleIndexPath, "utf8");
+        const moduleIndexLines = moduleIndexContent.split("\n").map((l) => l.trim());
+        if (!moduleIndexLines.includes(exportEntityLine)) {
+            fs.appendFileSync(moduleIndexPath, exportEntityLine + "\n");
+            console.log(`➕ Export adicionado ao index.ts do módulo ${module}: ${exportEntityLine}`);
         }
         else {
-            console.log(`✅ Export já presente em index.ts.`);
+            console.log(`✅ Export já presente no index.ts do módulo ${module}.`);
         }
     }
-    console.log(`🎉 Modelo ${pascal} gerado com sucesso em: ${path.join("bitrix", module)}`);
+    // Atualiza o index.ts raiz (src/bitrix/index.ts) com o export do módulo
+    const rootIndexPath = path.join("src", "bitrix", "index.ts");
+    const exportModuleLine = `export * from "./models/${module}/index.js";`;
+    if (!fs.existsSync(rootIndexPath)) {
+        fs.writeFileSync(rootIndexPath, exportModuleLine + "\n");
+        console.log(`📄 Criado index.ts raiz com exportação inicial do módulo ${module}.`);
+    }
+    else {
+        const rootIndexContent = fs.readFileSync(rootIndexPath, "utf8");
+        const rootIndexLines = rootIndexContent.split("\n").map((l) => l.trim());
+        if (!rootIndexLines.includes(exportModuleLine)) {
+            fs.appendFileSync(rootIndexPath, exportModuleLine + "\n");
+            console.log(`➕ Export do módulo ${module} adicionado ao index.ts raiz.`);
+        }
+        else {
+            console.log(`✅ Export do módulo ${module} já presente no index.ts raiz.`);
+        }
+    }
+    console.log(`🎉 Modelo ${pascal} gerado com sucesso no módulo ${module}.`);
 });
 program.parse();

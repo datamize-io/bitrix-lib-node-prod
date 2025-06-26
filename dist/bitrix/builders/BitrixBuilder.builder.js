@@ -1,8 +1,22 @@
+/**
+ * Classe base para criação de builders Bitrix.
+ * Define a estrutura comum de operações como get, insert, update, etc.
+ */
 export class BitrixBuilder {
+    /**
+     * Define a instância global do Bitrix e retorna uma nova instância do builder.
+     * @param bitrixInstance Instância do Bitrix
+     * @internal
+     */
     static setInstance(bitrixInstance) {
         this.instance = bitrixInstance;
         return new this(this.instance);
     }
+    /**
+     * Construtor base.
+     * @param bitrixInstance Instância do Bitrix
+     * @internal
+     */
     constructor(bitrixInstance) {
         this.prefixDefault = null;
         this.data = {};
@@ -13,22 +27,27 @@ export class BitrixBuilder {
         this.instance = bitrixInstance;
         return this;
     }
+    /** @internal */
     setSelectItems(selectByFields) {
         this.selectFields = selectByFields;
         return this;
     }
+    /** @internal */
     setSelectItem(selectByField) {
         this.selectFields.push(selectByField);
         return this;
     }
+    /** @internal */
     setFilterItems(filterByFields) {
         this.filterFields = filterByFields;
         return this;
     }
+    /** @internal */
     setFilterItem(filterByField, valueFromFilter) {
         this.filterFields[filterByField] = valueFromFilter;
         return this;
     }
+    /** @internal */
     setDataItem(field, value) {
         this.data = this.getData() || {};
         this.changedData = this.changedData || {};
@@ -36,13 +55,16 @@ export class BitrixBuilder {
         this.changedData[field] = value;
         return this;
     }
+    /** @internal */
     setData(data) {
         this.data = data;
         return this;
     }
+    /** @internal */
     getData() {
         return this.data;
     }
+    /** @internal */
     setId(id) {
         if (!this.data) {
             this.data = {};
@@ -50,34 +72,42 @@ export class BitrixBuilder {
         this.data.ID = id;
         return this;
     }
+    /** @internal */
     setDefaultParams() {
         this.instance.setDefaultParams(this.defaultParams);
         return this;
     }
+    /** @internal */
     setField(field, value) {
         console.log("Setting field %s value %s", field, value);
-        // Schema
         this.changedData = this.changedData || {};
         this.data = this.data || {};
         this.data.fields = this.data.fields || {};
         this.changedData.fields = this.changedData.fields || {};
-        // Data
         this.data.fields[field] = value;
         this.changedData.fields[field] = value;
         return this;
     }
+    /**
+     * Busca um item no Bitrix por ID.
+     * @param id Identificador do item
+     * @param method Método opcional da API
+     * @internal
+     */
     async get(id, method = null) {
         method = method || this.prefixDefault + ".get";
-        return await this.requestAndPatch(method, {
-            id: id,
-        });
+        return await this.requestAndPatch(method, { id });
     }
+    /**
+     * Realiza uma requisição genérica e aplica o patch nos dados.
+     * @internal
+     */
     async requestAndPatch(method, params = {}, resultField = "result") {
         this.setDefaultParams();
         try {
             const result = await this.instance.request(method, params);
             if (result.isSuccess) {
-                return this.patch(result.getData(), resultField); // ← retorna o que foi tratado
+                return this.patch(result.getData(), resultField);
             }
             else {
                 throw Error(result.toString());
@@ -87,10 +117,18 @@ export class BitrixBuilder {
             throw Error(`${error}`);
         }
     }
+    /**
+     * Atualiza os dados internos da instância com o resultado da requisição.
+     * @internal
+     */
     patch(params, field = "result") {
         this.data = field ? params[field] : params;
         return this;
     }
+    /**
+     * Insere dados no Bitrix.
+     * @internal
+     */
     async insert(params, method = null) {
         this.setDefaultParams();
         params = params || this.data;
@@ -107,6 +145,10 @@ export class BitrixBuilder {
             throw Error("Erro ao tentar inserir " + this.constructor.name + ".");
         }
     }
+    /**
+     * Decide entre insert ou update com base no ID existente.
+     * @internal
+     */
     async save(params = null, method = null) {
         this.setDefaultParams();
         if (this.data.ID || this.data.id) {
@@ -116,6 +158,10 @@ export class BitrixBuilder {
             return await this.insert(params, method);
         }
     }
+    /**
+     * Atualiza dados no Bitrix.
+     * @internal
+     */
     async update(params = null, method = null) {
         this.setDefaultParams();
         params = params || this.changedData;
@@ -136,6 +182,10 @@ export class BitrixBuilder {
         method = method || this.prefixDefault + ".update";
         return this.instance.request(method, params);
     }
+    /**
+     * Coleta dados da API e mapeia para instâncias da classe.
+     * @internal
+     */
     async collect(params = null, method = null, collectField = "result") {
         this.setDefaultParams();
         method = method || this.prefixDefault + ".list";
@@ -176,6 +226,10 @@ export class BitrixBuilder {
             throw Error(result.toString());
         }
     }
+    /**
+     * Exclui um item por ID.
+     * @internal
+     */
     async delete(id) {
         this.setDefaultParams();
         if (!id) {

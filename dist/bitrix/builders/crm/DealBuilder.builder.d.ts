@@ -1,5 +1,5 @@
-import { BitrixBuilder } from "../BitrixBuilder.builder.js";
-export declare abstract class DealBuilder extends BitrixBuilder {
+import { ItemBuilder } from "./ItemBuilder.builder.js";
+export declare abstract class DealBuilder extends ItemBuilder {
     protected defaultParams: Record<string, any | null>;
     /**
      * Define um contato principal para a negociação.

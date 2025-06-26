@@ -1,6 +1,6 @@
-import { BitrixBuilder } from "../BitrixBuilder.builder.js";
+import { ItemBuilder } from "./ItemBuilder.builder.js";
 
-export abstract class DealBuilder extends BitrixBuilder {
+export abstract class DealBuilder extends ItemBuilder {
   protected defaultParams: Record<string, any | null> = {
     entityTypeId: 2,
     useOriginalUfNames: "Y",

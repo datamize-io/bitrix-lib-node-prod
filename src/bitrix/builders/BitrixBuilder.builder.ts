@@ -1,4 +1,4 @@
-import { BitrixInstance } from "../BitrixInstance.js";
+import { BitrixInstance } from "../models/BitrixInstance.js";
 
 /**
  * Classe base para criação de builders Bitrix.
