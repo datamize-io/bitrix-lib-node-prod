@@ -1,7 +1,7 @@
 import * as b24jssdk from "@bitrix24/b24jssdk";
 export { b24jssdk };
 export * from "./BitrixInstance.js";
-export * from "./BitrixBuilder.js";
+export * from "./builders/BitrixBuilder.builder.js";
 export * from "./crm/Pipeline.js";
 export * from "./crm/Activity.js";
 export * from "./crm/Comment.js";
@@ -16,4 +16,4 @@ export * from "./crm/ContactField.js";
 export * from "./crm/LeadField.js";
 export * from "./crm/Item.js";
 export * from "./im/Connector.js";
-export * from "./im/imconnector-register.interface.js";
+export * from "./im/ConnectorRegister.interface.js";

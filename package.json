@@ -5,8 +5,10 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
+    "generate": "node dist/cli.js generate",
     "build": "tsc",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "docs": "typedoc"
   },
   "exports": {
     ".": "./dist/index.js",
@@ -22,6 +24,9 @@
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
+    "commander": "^14.0.0",
+    "ts-node": "^10.9.2",
+    "typedoc": "^0.28.5",
     "typescript": "^5.8.3"
   }
 }

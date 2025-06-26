@@ -1,4 +1,4 @@
-import { BitrixBuilder } from "../BitrixBuilder.js";
+import { BitrixBuilder } from "../builders/BitrixBuilder.builder.js";
 export declare class CustomField extends BitrixBuilder {
     protected prefixDefault: string | null;
     protected static fieldTypes: string[];

@@ -1,0 +1,31 @@
+import { BitrixInstance } from "../BitrixInstance.js";
+export declare class BitrixBuilder {
+    protected instance: BitrixInstance;
+    protected static instance: BitrixInstance;
+    protected prefixDefault: string | null;
+    protected data: any;
+    protected selectFields: string[];
+    protected filterFields: any;
+    protected defaultParams: any;
+    protected changedData: any;
+    static setInstance(bitrixInstance: BitrixInstance): BitrixBuilder;
+    constructor(bitrixInstance: BitrixInstance);
+    setSelectItems(selectByFields: string[]): this;
+    setSelectItem(selectByField: string): this;
+    setFilterItems(filterByFields: any): this;
+    setFilterItem(filterByField: string, valueFromFilter: any): this;
+    setDataItem(field: string, value: any): this;
+    setData(data: any): this;
+    getData(): any;
+    setId(id: string | number): this;
+    setDefaultParams(): this;
+    setField(field: string, value: any): this;
+    get<T = any>(id: string | number, method?: string | null): Promise<T>;
+    requestAndPatch<T = any>(method: string, params?: any, resultField?: string): Promise<T>;
+    patch(params: any, field?: string | null): any;
+    insert(params: any, method?: string | null): Promise<any>;
+    save(params?: any | null, method?: string | null): Promise<any>;
+    update(params?: any | null, method?: string | null): Promise<any>;
+    collect(params?: any | null, method?: string | null, collectField?: string | null): Promise<any | this>;
+    delete(id: number | string | null): Promise<void>;
+}

@@ -1,22 +1,3 @@
-import { BitrixBuilder } from "../BitrixBuilder.js";
-export class Item extends BitrixBuilder {
-    constructor() {
-        super(...arguments);
-        this.prefixDefault = "crm.item";
-        this.defaultParams = {
-            entityTypeId: null,
-            select: ["*"],
-        };
-    }
-    setEntityTypeId(entityTypeId) {
-        this.defaultParams.entityTypeId = entityTypeId;
-        return this;
-    }
-    setId(id) {
-        this.setDataItem("id", id);
-        return this;
-    }
-    async collect(params = {}, method = null, collectField = "result") {
-        return await super.collect(params, method, "result.items");
-    }
+import { ItemBuilder } from "../builders/crm/ItemBuilder.builder.js";
+export class Item extends ItemBuilder {
 }

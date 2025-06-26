@@ -1,4 +1,4 @@
-import { BitrixBuilder } from "../BitrixBuilder.js";
+import { BitrixBuilder } from "../builders/BitrixBuilder.builder.js";
 type MergeStatus = "SUCCESS" | "CONFLICT" | "ERROR";
 export declare class Duplicate extends BitrixBuilder {
     protected prefixDefault: string | null;

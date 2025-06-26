@@ -108,7 +108,6 @@ export class Lead extends Item {
         const LeadsToMove = !Array.isArray(object) ? [object] : object;
         const responses = [];
         LeadsToMove.forEach(async (Lead) => {
-            Lead.setField("STAGE_ID", stageId);
             const response = await Lead.setField("categoryId", 22).setField("stageId", stageId).update();
             responses.push(response);
         });

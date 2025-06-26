@@ -1,0 +1,9 @@
+{
+  "entryPoints": ["src/bitrix"],
+  "entryPointStrategy": "expand",
+  "out": "docs",
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeInternal": true,
+  "includeVersion": true
+}
