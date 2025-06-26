@@ -128,10 +128,14 @@ export class BitrixBuilder {
       if (result.isSuccess) {
         return this.patch(result.getData(), resultField);
       } else {
-        throw Error(result.toString());
+        // Aqui usamos a interface IResult do SDK
+        const errorMessages = result.getErrorMessages(); // array de strings
+        throw new Error(errorMessages.join("; ") || "Erro desconhecido do Bitrix");
       }
-    } catch (error) {
-      throw Error(`${error}`);
+    } catch (error: any) {
+      const message = error.response?.data || error.response?.data || error.message || "Erro desconhecido";
+
+      throw new Error(message);
     }
   }
 

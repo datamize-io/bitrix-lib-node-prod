@@ -24,10 +24,12 @@ program
     const interfaceImportPath = path
         .relative(entityDir, path.join("src", "bitrix", "interfaces", module, `${pascal}Interface.interface.ts`))
         .replace(/\\/g, "/");
-    const builderImportRelativePath = `../builders/${module}/${pascal}Builder.builder.ts`;
+    const builderImportRelativePath = path
+        .relative(entityDir, path.join("src", "bitrix", "builders", module, `${pascal}Builder.builder.ts`))
+        .replace(/\\/g, "/");
     const builderContent = `
-import { BitrixBuilder } from "../BitrixBuilder.builder.ts";
-import { ${pascal}Interface } from "../${interfaceImportPath}";
+import { BitrixBuilder } from "../BitrixBuilder.builder.js";
+import { ${pascal}Interface } from "${interfaceImportPath.replace(".ts", ".js")}";
 
 export abstract class ${pascal}Builder extends BitrixBuilder implements ${pascal}Interface {
   
@@ -39,8 +41,8 @@ export interface ${pascal}Interface {
 }
 `;
     const entityContent = `
-import { ${pascal}Builder } from "${builderImportRelativePath}";
-import { ${pascal}Interface } from "${interfaceImportPath}";
+import { ${pascal}Builder } from "${builderImportRelativePath.replace(".ts", ".js")}";
+import { ${pascal}Interface } from "${interfaceImportPath.replace(".ts", ".js")}";
 
 export class ${pascal} extends ${pascal}Builder implements ${pascal}Interface {
 
