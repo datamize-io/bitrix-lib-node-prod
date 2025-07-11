@@ -2,6 +2,43 @@ export interface ConnectorInterface {
   // TODO: Defina os campos da interface
 }
 
+export interface ConnectorMessageFileInterface {
+  url: string;
+  name?: string;
+}
+
+export interface ConnectorMessageInterface {
+  id: string | number;
+  date: number;
+  disable_crm?: "Y" | "N";
+  text?: string;
+  files?: ConnectorMessageFileInterface[];
+}
+
+export interface ConnectorUserMessageInterface {
+  id: string | number; // User ID in the external system *
+  last_name?: string; // Last name (opcional)
+  name?: string; // First name (opcional)
+  picture?: {
+    url: string; // Link to the user's avatar
+  };
+  url?: string; // Link to the user's profile (opcional)
+  sex?: "male" | "female"; // Gender (opcional)
+  email?: string; // Email (opcional)
+  phone?: string | number; // Phone (opcional)
+  skip_phone_validate?: "Y" | "N"; // Se 'Y', ignora validação de telefone
+}
+
+export interface ConnectorSendMessageInterface {
+  user: ConnectorUserMessageInterface;
+  message: ConnectorMessageInterface;
+  chat?: Record<string, any>;
+}
+
+export interface ConnectorSendMessagesInterface {
+  MESSAGES: ConnectorSendMessageInterface[];
+}
+
 export interface ConnectorRegister {
   ID: string; // Ex: 'datamize_whatsapp'
   NAME: string; // Nome visível do canal

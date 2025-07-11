@@ -55,6 +55,11 @@ export declare class BitrixBuilder {
      * Realiza uma requisição genérica e aplica o patch nos dados.
      * @internal
      */
+    requestData<T = any>(method: string, params?: any, resultField?: string): Promise<T>;
+    /**
+     * Realiza uma requisição genérica e aplica o patch nos dados.
+     * @internal
+     */
     requestAndPatch<T = any>(method: string, params?: any, resultField?: string): Promise<T>;
     /**
      * Atualiza os dados internos da instância com o resultado da requisição.

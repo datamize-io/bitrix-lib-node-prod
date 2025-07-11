@@ -1,4 +1,4 @@
-import { B24Hook, type B24HookParams, type AuthData, type B24OAuthSecret, Result } from "@bitrix24/b24jssdk";
+import { B24Hook, type B24HookParams, type B24OAuthSecret, Result } from "@bitrix24/b24jssdk";
 /**
  * Classe responsável por gerenciar a instância de conexão com a API Bitrix24.
  * Permite configurar autenticação, parâmetros padrão, renovação de token OAuth e realizar requisições à API.
@@ -11,6 +11,7 @@ export declare class BitrixInstance {
     private expiresAt?;
     private clientId?;
     private clientSecret?;
+    private LOG?;
     /**
      * Cria uma nova instância do BitrixInstance.
      * @param secretObject Objeto de configuração do B24Hook ou uma instância já existente.
@@ -34,6 +35,7 @@ export declare class BitrixInstance {
      * @returns A instância atual para encadeamento.
      */
     setRefreshToken(refreshToken: string): this;
+    setLog(log?: boolean): this;
     /**
      * Define parâmetros padrão que serão injetados em todas as requisições.
      * @param paramsToInject Objeto com parâmetros padrão.
@@ -57,7 +59,7 @@ export declare class BitrixInstance {
      * @param data Objeto com dados de autenticação.
      * @returns A instância atual para encadeamento.
      */
-    setOAuthData(data: AuthData): this;
+    setOAuthData(data: Record<string, any>): this;
     /**
      * Verifica se o token de acesso está expirado.
      * @returns True se expirado, false caso contrário.

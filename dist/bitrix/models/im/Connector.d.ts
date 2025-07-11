@@ -1,5 +1,5 @@
 import { ConnectorBuilder, ConnectorRegisterBuilder } from "../../builders/im/ConnectorBuilder.builder.js";
-import { ConnectorRegister, ConnectorDataSet } from "../../interfaces/im/ConnectorInterface.interface.js";
+import { ConnectorRegister, ConnectorDataSet, ConnectorSendMessagesInterface } from "../../interfaces/im/ConnectorInterface.interface.js";
 /**
  * Classe que representa um conector personalizado no módulo Open Lines do Bitrix24.
  * Estende funcionalidades da classe BitrixBuilder.
@@ -32,7 +32,7 @@ export declare class Connector extends ConnectorBuilder {
      * @param line ID da linha do canal aberto
      * @param active Define se estará ativo ('Y') ou inativo ('N')
      */
-    enabled(connector: string, line: string, active: "Y" | "N"): Promise<void>;
+    activate(connectorId: string, lineId: string | number, active: "Y" | "N"): Promise<any>;
     /**
      * Define os dados de exibição e comportamento do canal do conector.
      *
@@ -63,7 +63,7 @@ export declare class Connector extends ConnectorBuilder {
     /**
      * Envia mensagens através do conector.
      */
-    sendMessages(): void;
+    sendMessages(connectorId: string, lineId: string | number, messages: ConnectorSendMessagesInterface): Promise<any>;
     /**
      * Atualiza uma mensagem já enviada.
      */

@@ -9,7 +9,9 @@ export class OpenLine extends OpenLineBuilder {
      * Consulte a documentação oficial para detalhes de parâmetros:
      * https://apidocs.bitrix24.com/method/imopenlines.config.add/
      */
-    async add() { }
+    async add(configBuilder) {
+        return await this.requestAndPatch("imopenlines.config.add", configBuilder);
+    }
     /**
      * Remove um canal aberto existente pelo seu ID.
      * @param lineId ID do canal aberto a ser removido.

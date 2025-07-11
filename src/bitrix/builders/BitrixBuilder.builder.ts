@@ -89,7 +89,7 @@ export class BitrixBuilder {
 
   /** @internal */
   setDefaultParams() {
-    this.instance.setDefaultParams(this.defaultParams);
+    this.instance.setDefaultParams(this.defaultParams || {});
     return this;
   }
 
@@ -115,6 +115,28 @@ export class BitrixBuilder {
   async get<T = any>(id: string | number, method: string | null = null): Promise<T> {
     method = method || this.prefixDefault + ".get";
     return await this.requestAndPatch(method, { id });
+  }
+
+  /**
+   * Realiza uma requisição genérica e aplica o patch nos dados.
+   * @internal
+   */
+  async requestData<T = any>(method: string, params: any = {}, resultField?: string): Promise<T> {
+    this.setDefaultParams();
+    try {
+      const result = await this.instance.request(method, params);
+      if (result.isSuccess) {
+        return resultField ? result.getData()[resultField] : result.getData();
+      } else {
+        // Aqui usamos a interface IResult do SDK
+        const errorMessages = result.getErrorMessages(); // array de strings
+        throw new Error(errorMessages.join("; ") || "Erro desconhecido do Bitrix");
+      }
+    } catch (error: any) {
+      const message = error.response?.data || error.response?.data || error.message || "Erro desconhecido";
+
+      throw new Error(message);
+    }
   }
 
   /**

@@ -1,5 +1,5 @@
 import { OpenLineBuilder } from "../../builders/im/OpenLineBuilder.builder.js";
-import { OpenLineInterface } from "../../interfaces/im/OpenLineInterface.interface.js";
+import { OpenChannelConfigInterface, OpenLineInterface } from "../../interfaces/im/OpenLineInterface.interface.js";
 /**
  * Classe responsável por manipular as operações de OpenLine (Canais Abertos) no Bitrix24.
  * Permite criar, atualizar, deletar, obter informações e executar operações relacionadas à configuração dos canais abertos.
@@ -10,7 +10,7 @@ export declare class OpenLine extends OpenLineBuilder implements OpenLineInterfa
      * Consulte a documentação oficial para detalhes de parâmetros:
      * https://apidocs.bitrix24.com/method/imopenlines.config.add/
      */
-    add(): Promise<void>;
+    add(configBuilder: OpenChannelConfigInterface): Promise<any>;
     /**
      * Remove um canal aberto existente pelo seu ID.
      * @param lineId ID do canal aberto a ser removido.

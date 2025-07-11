@@ -14,6 +14,7 @@ export class BitrixInstance {
 
   private clientId?: string;
   private clientSecret?: string;
+  private LOG?: boolean = false;
 
   /**
    * Cria uma nova instância do BitrixInstance.
@@ -49,6 +50,11 @@ export class BitrixInstance {
    */
   setRefreshToken(refreshToken: string): this {
     this.refreshToken = refreshToken;
+    return this;
+  }
+
+  setLog(log: boolean = true) {
+    this.LOG = log;
     return this;
   }
 
@@ -101,10 +107,10 @@ export class BitrixInstance {
    * @param data Objeto com dados de autenticação.
    * @returns A instância atual para encadeamento.
    */
-  setOAuthData(data: AuthData): this {
+  setOAuthData(data: Record<string, any>): this {
     this.accessToken = data.access_token;
     this.refreshToken = data.refresh_token;
-    this.expiresAt = Date.now() + data.expires_in * 1000;
+    this.expiresAt = data.expires * 1000;
     return this;
   }
 
@@ -163,10 +169,15 @@ export class BitrixInstance {
 
     if (this.accessToken && this.refreshToken) {
       if (this.isTokenExpired()) {
+        console.log("Refreshing accessToken");
         await this.refreshAccessToken();
+      } else {
+        console.log("Not expired %s", new Date(this.expiresAt!).toLocaleString("pt-BR"));
       }
       params.auth = this.accessToken;
     }
+
+    console.log(method, params);
 
     return isBatch ? this.client.callBatch({ [method]: { method, params } }) : this.client.callMethod(method, params);
   }

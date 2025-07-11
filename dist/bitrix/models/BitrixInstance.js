@@ -10,6 +10,7 @@ export class BitrixInstance {
      */
     constructor(secretObject) {
         this.paramsToInject = {};
+        this.LOG = false;
         this.client = secretObject instanceof B24Hook ? secretObject : new B24Hook(secretObject);
     }
     /**
@@ -36,6 +37,10 @@ export class BitrixInstance {
      */
     setRefreshToken(refreshToken) {
         this.refreshToken = refreshToken;
+        return this;
+    }
+    setLog(log = true) {
+        this.LOG = log;
         return this;
     }
     /**
@@ -87,7 +92,7 @@ export class BitrixInstance {
     setOAuthData(data) {
         this.accessToken = data.access_token;
         this.refreshToken = data.refresh_token;
-        this.expiresAt = Date.now() + data.expires_in * 1000;
+        this.expiresAt = data.expires * 1000;
         return this;
     }
     /**
@@ -138,10 +143,15 @@ export class BitrixInstance {
         params = this.getDefaultParams(params);
         if (this.accessToken && this.refreshToken) {
             if (this.isTokenExpired()) {
+                console.log("Refreshing accessToken");
                 await this.refreshAccessToken();
+            }
+            else {
+                console.log("Not expired %s", new Date(this.expiresAt).toLocaleString("pt-BR"));
             }
             params.auth = this.accessToken;
         }
+        console.log(method, params);
         return isBatch ? this.client.callBatch({ [method]: { method, params } }) : this.client.callMethod(method, params);
     }
 }

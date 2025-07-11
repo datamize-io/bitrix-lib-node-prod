@@ -1,5 +1,137 @@
 import { BitrixBuilder } from "../BitrixBuilder.builder.js";
-import { ConnectorInterface } from "../../interfaces/im/ConnectorInterface.interface.js";
+import {
+  ConnectorInterface,
+  ConnectorUserMessageInterface,
+  ConnectorMessageInterface,
+  ConnectorMessageFileInterface,
+} from "../../interfaces/im/ConnectorInterface.interface.js";
+
+export class ConnectorMessageBuilder implements ConnectorMessageInterface {
+  id!: string | number;
+  date!: number;
+  disable_crm?: "Y" | "N";
+  text?: string;
+  files?: ConnectorMessageFileInterface[];
+
+  setId(id: string | number) {
+    this.id = id;
+    return this;
+  }
+
+  setDate(date: number | Date) {
+    this.date = date instanceof Date ? Math.floor(date.getTime() / 1000) : date;
+    return this;
+  }
+
+  disableCrm(disable: "Y" | "N" = "Y") {
+    this.disable_crm = disable;
+    return this;
+  }
+
+  setText(text: string) {
+    this.text = text;
+    return this;
+  }
+
+  addFile(url: string, name?: string) {
+    if (!this.files) this.files = [];
+    this.files.push({ url, name });
+    return this;
+  }
+
+  addFiles(files: ConnectorMessageFileInterface[]) {
+    if (!this.files) this.files = [];
+    this.files.push(...files);
+    return this;
+  }
+
+  build(): ConnectorMessageInterface {
+    if (!this.id || !this.date) {
+      throw Error("Parâmetros obrigatórios não fornecidos: ID e DATE.");
+    }
+
+    return {
+      id: this.id,
+      date: this.date,
+      disable_crm: this.disable_crm,
+      text: this.text,
+      files: this.files,
+    };
+  }
+}
+
+export class ConnectorUserMessageBuilder implements ConnectorUserMessageInterface {
+  id!: string | number;
+  last_name?: string;
+  name?: string;
+  picture?: {
+    url: string;
+  };
+  url?: string;
+  sex?: "male" | "female";
+  email?: string;
+  phone?: string | number;
+  skip_phone_validate?: "Y" | "N";
+
+  setId(id: string | number) {
+    this.id = id;
+    return this;
+  }
+
+  setLastName(lastName: string) {
+    this.last_name = lastName;
+    return this;
+  }
+
+  setName(name: string) {
+    this.name = name;
+    return this;
+  }
+
+  setPicture(url: string) {
+    this.picture = { url };
+    return this;
+  }
+
+  setUrl(url: string) {
+    this.url = url;
+    return this;
+  }
+
+  setSex(sex: "male" | "female") {
+    this.sex = sex;
+    return this;
+  }
+
+  setEmail(email: string) {
+    this.email = email;
+    return this;
+  }
+
+  setPhone(phone: string | number) {
+    this.phone = phone;
+    return this;
+  }
+
+  skipPhoneValidate(skip: "Y" | "N" = "Y") {
+    this.skip_phone_validate = skip;
+    return this;
+  }
+
+  build(): ConnectorUserMessageInterface {
+    return {
+      id: this.id,
+      last_name: this.last_name,
+      name: this.name,
+      picture: this.picture,
+      url: this.url,
+      sex: this.sex,
+      email: this.email,
+      phone: this.phone,
+      skip_phone_validate: this.skip_phone_validate,
+    };
+  }
+}
 
 export class ConnectorRegisterBuilder {
   private data: Partial<any> = {};
@@ -110,5 +242,13 @@ export abstract class ConnectorBuilder extends BitrixBuilder implements Connecto
 
   get RegisterBuilder(): ConnectorRegisterBuilder {
     return new ConnectorRegisterBuilder();
+  }
+
+  get UserMessageBuilder(): ConnectorUserMessageBuilder {
+    return new ConnectorUserMessageBuilder();
+  }
+
+  get MessageBuilder(): ConnectorMessageBuilder {
+    return new ConnectorMessageBuilder();
   }
 }

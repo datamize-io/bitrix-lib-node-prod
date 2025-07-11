@@ -1,5 +1,37 @@
 export interface ConnectorInterface {
 }
+export interface ConnectorMessageFileInterface {
+    url: string;
+    name?: string;
+}
+export interface ConnectorMessageInterface {
+    id: string | number;
+    date: number;
+    disable_crm?: "Y" | "N";
+    text?: string;
+    files?: ConnectorMessageFileInterface[];
+}
+export interface ConnectorUserMessageInterface {
+    id: string | number;
+    last_name?: string;
+    name?: string;
+    picture?: {
+        url: string;
+    };
+    url?: string;
+    sex?: "male" | "female";
+    email?: string;
+    phone?: string | number;
+    skip_phone_validate?: "Y" | "N";
+}
+export interface ConnectorSendMessageInterface {
+    user: ConnectorUserMessageInterface;
+    message: ConnectorMessageInterface;
+    chat?: Record<string, any>;
+}
+export interface ConnectorSendMessagesInterface {
+    MESSAGES: ConnectorSendMessageInterface[];
+}
 export interface ConnectorRegister {
     ID: string;
     NAME: string;
