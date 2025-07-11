@@ -20,7 +20,6 @@ program
     const builderPath = path.join(builderDir, `${pascal}Builder.builder.ts`);
     const interfacePath = path.join(interfaceDir, `${pascal}Interface.interface.ts`);
     const entityPath = path.join(entityDir, `${pascal}.ts`);
-    // Ajuste para imports (usando .ts porque o TS é fonte)
     const interfaceImportPath = path
         .relative(entityDir, path.join("src", "bitrix", "interfaces", module, `${pascal}Interface.interface.ts`))
         .replace(/\\/g, "/");
@@ -56,14 +55,12 @@ export class ${pascal} extends ${pascal}Builder implements ${pascal}Interface {
         fs.writeFileSync(filePath, content.trimStart());
         console.log(`✅ Arquivo criado: ${filePath}`);
     }
-    // Criação dos diretórios
     fs.mkdirSync(entityDir, { recursive: true });
     fs.mkdirSync(builderDir, { recursive: true });
     fs.mkdirSync(interfaceDir, { recursive: true });
     writeIfNotExists(builderPath, builderContent);
     writeIfNotExists(interfacePath, interfaceContent);
     writeIfNotExists(entityPath, entityContent);
-    // Atualiza index.ts do módulo (ex: src/bitrix/crm/index.ts)
     const moduleIndexPath = path.join(entityDir, "index.ts");
     const exportEntityLine = `export * from "./${pascal}.js";`;
     if (!fs.existsSync(moduleIndexPath)) {
@@ -81,7 +78,6 @@ export class ${pascal} extends ${pascal}Builder implements ${pascal}Interface {
             console.log(`✅ Export já presente no index.ts do módulo ${module}.`);
         }
     }
-    // Atualiza o index.ts raiz (src/bitrix/index.ts) com o export do módulo
     const rootIndexPath = path.join("src", "bitrix", "index.ts");
     const exportModuleLine = `export * from "./models/${module}/index.js";`;
     if (!fs.existsSync(rootIndexPath)) {
@@ -101,4 +97,4 @@ export class ${pascal} extends ${pascal}Builder implements ${pascal}Interface {
     }
     console.log(`🎉 Modelo ${pascal} gerado com sucesso no módulo ${module}.`);
 });
-program.parse();
+program.parse(process.argv);

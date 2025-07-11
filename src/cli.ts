@@ -11,7 +11,7 @@ program
   .argument("<type>", "Tipo a ser gerado (ex: model)")
   .argument("<module>", "Módulo a ser gerado (ex: crm, im)")
   .argument("<name>", "Nome do modelo (ex: Deal)")
-  .action((type, module, name) => {
+  .action((type: string, module: string, name: string) => {
     if (type !== "model") {
       console.error("❌ Tipo não suportado:", type);
       process.exit(1);
@@ -27,10 +27,10 @@ program
     const interfacePath = path.join(interfaceDir, `${pascal}Interface.interface.ts`);
     const entityPath = path.join(entityDir, `${pascal}.ts`);
 
-    // Ajuste para imports (usando .ts porque o TS é fonte)
     const interfaceImportPath = path
       .relative(entityDir, path.join("src", "bitrix", "interfaces", module, `${pascal}Interface.interface.ts`))
       .replace(/\\/g, "/");
+
     const builderImportRelativePath = path
       .relative(entityDir, path.join("src", "bitrix", "builders", module, `${pascal}Builder.builder.ts`))
       .replace(/\\/g, "/");
@@ -68,7 +68,6 @@ export class ${pascal} extends ${pascal}Builder implements ${pascal}Interface {
       console.log(`✅ Arquivo criado: ${filePath}`);
     }
 
-    // Criação dos diretórios
     fs.mkdirSync(entityDir, { recursive: true });
     fs.mkdirSync(builderDir, { recursive: true });
     fs.mkdirSync(interfaceDir, { recursive: true });
@@ -77,7 +76,6 @@ export class ${pascal} extends ${pascal}Builder implements ${pascal}Interface {
     writeIfNotExists(interfacePath, interfaceContent);
     writeIfNotExists(entityPath, entityContent);
 
-    // Atualiza index.ts do módulo (ex: src/bitrix/crm/index.ts)
     const moduleIndexPath = path.join(entityDir, "index.ts");
     const exportEntityLine = `export * from "./${pascal}.js";`;
 
@@ -95,7 +93,6 @@ export class ${pascal} extends ${pascal}Builder implements ${pascal}Interface {
       }
     }
 
-    // Atualiza o index.ts raiz (src/bitrix/index.ts) com o export do módulo
     const rootIndexPath = path.join("src", "bitrix", "index.ts");
     const exportModuleLine = `export * from "./models/${module}/index.js";`;
 
@@ -116,4 +113,4 @@ export class ${pascal} extends ${pascal}Builder implements ${pascal}Interface {
     console.log(`🎉 Modelo ${pascal} gerado com sucesso no módulo ${module}.`);
   });
 
-program.parse();
+program.parse(process.argv);
