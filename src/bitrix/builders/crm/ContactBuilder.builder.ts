@@ -12,7 +12,7 @@ export abstract class ContactBuilder extends ItemBuilder {
    * - select: Campos a serem selecionados na consulta (padrão todos).
    */
   protected defaultParams: Record<string, any | null> = {
-    entityTypeId: 2,
+    entityTypeId: 3,
     useOriginalUfNames: "Y",
     select: ["*"],
   };

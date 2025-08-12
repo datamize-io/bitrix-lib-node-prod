@@ -15,4 +15,10 @@ export class OpenLineMessage extends OpenLineMessageBuilder {
             MESSAGE_ID: messageId,
         });
     }
+    async startDialogByMessage(chatId, messageId) {
+        return this.requestData("imopenlines.message.session.start", {
+            CHAT_ID: chatId,
+            MESSAGE_ID: messageId,
+        });
+    }
 }

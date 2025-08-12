@@ -1,5 +1,6 @@
 export * from "./Pipeline.js";
 export * from "./Activity.js";
+export * from "./ActivityForm.js";
 export * from "./Comment.js";
 export * from "./Duplicate.js";
 export * from "./Contact.js";

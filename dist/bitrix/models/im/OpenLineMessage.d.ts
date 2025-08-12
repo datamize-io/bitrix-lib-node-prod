@@ -3,4 +3,5 @@ import { OpenLineMessageInterface } from "../../interfaces/im/OpenLineMessageInt
 export declare class OpenLineMessage extends OpenLineMessageBuilder implements OpenLineMessageInterface {
     add(entity: "lead" | "deal" | "contact" | "company", entityId: string | number, userId: string | number, chatId: string | number, message: string): Promise<number>;
     saveAsQuickMessage(chatId: string | number, messageId: string | number): Promise<boolean>;
+    startDialogByMessage(chatId: string | number, messageId: string | number): Promise<boolean>;
 }

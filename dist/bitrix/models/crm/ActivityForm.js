@@ -8,7 +8,8 @@ export class ActivityForm extends ActivityFormBuilder {
             throw Error("VISITED_PAGES não é um array.");
         }
         const lastPage = this.data.PROVIDER_PARAMS.VISITED_PAGES.pop();
-        lastPage.query = new URL(lastPage.HREF).searchParams;
+        const query = new URL(lastPage.HREF).searchParams;
+        lastPage.query = Object.fromEntries(query.entries());
         return lastPage;
     }
 }

@@ -13,7 +13,7 @@ export class ContactBuilder extends ItemBuilder {
          * - select: Campos a serem selecionados na consulta (padrão todos).
          */
         this.defaultParams = {
-            entityTypeId: 2,
+            entityTypeId: 3,
             useOriginalUfNames: "Y",
             select: ["*"],
         };

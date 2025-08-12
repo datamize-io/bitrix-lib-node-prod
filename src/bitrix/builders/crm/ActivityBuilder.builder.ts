@@ -10,8 +10,8 @@ export abstract class ActivityBuilder extends BitrixBuilder {
   async moveTo(toEntityId: string | number, toEntityTypeId: null | string | number = null) {
     const request = this.instance.request("crm.activity.binding.move", {
       activityId: this.getData().ID,
-      sourceEntityTypeId: this.getData().OWNER_TYPE_ID,
-      sourceEntityId: this.getData().OWNER_ID,
+      sourceEntityTypeId: this.getData().OWNER_ID,
+      sourceEntityId: this.getData().OWNER_TYPE_ID,
       targetEntityTypeId: toEntityTypeId,
       targetEntityId: toEntityId,
     });

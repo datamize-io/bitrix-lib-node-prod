@@ -24,4 +24,10 @@ export class OpenLineMessage extends OpenLineMessageBuilder implements OpenLineM
       MESSAGE_ID: messageId,
     });
   }
+  async startDialogByMessage(chatId: string | number, messageId: string | number): Promise<boolean> {
+    return this.requestData("imopenlines.message.session.start", {
+      CHAT_ID: chatId,
+      MESSAGE_ID: messageId,
+    });
+  }
 }

@@ -8,3 +8,4 @@ export * from "./models/im/index.js";
 
 // Generates
 export * from "./models/events/index.js";
+export * from "./models/calendar/index.js";
