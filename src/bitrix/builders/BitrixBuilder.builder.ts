@@ -5,8 +5,8 @@ import { BitrixInstance } from "../models/BitrixInstance.js";
  * Define a estrutura comum de operações como get, insert, update, etc.
  */
 export class BitrixBuilder {
-  protected instance: BitrixInstance;
-  protected static instance: BitrixInstance;
+  public instance: BitrixInstance;
+  public static instance: BitrixInstance;
   protected prefixDefault: string | null = null;
   protected data: any = {};
   protected selectFields: string[] = [];
