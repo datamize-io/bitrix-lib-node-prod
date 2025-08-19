@@ -165,7 +165,7 @@ export class BitrixBuilder {
    * Atualiza os dados internos da instância com o resultado da requisição.
    * @internal
    */
-  patch(params: any, field: string | null = "result"): any {
+  patch(params: any, field: string | null): any {
     this.data = field ? params[field] : params;
     return this;
   }
