@@ -256,12 +256,13 @@ export class BitrixBuilder {
      * @internal
      */
     async delete(id) {
+        console.log("Deletando id ", id);
         this.setDefaultParams();
         if (!id) {
             if (!this.data?.ID || !this.data?.id) {
                 throw Error(`Erro ao tentar deletar ${this.constructor.name}, ID não foi passado.`);
             }
         }
-        return;
+        return await this.instance.request(this.prefixDefault + ".delete", { id: id || this.data.ID || this.data.id });
     }
 }

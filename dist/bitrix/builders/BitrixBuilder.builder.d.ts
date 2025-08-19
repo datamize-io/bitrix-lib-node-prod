@@ -4,8 +4,8 @@ import { BitrixInstance } from "../models/BitrixInstance.js";
  * Define a estrutura comum de operações como get, insert, update, etc.
  */
 export declare class BitrixBuilder {
-    protected instance: BitrixInstance;
-    protected static instance: BitrixInstance;
+    instance: BitrixInstance;
+    static instance: BitrixInstance;
     protected prefixDefault: string | null;
     protected data: any;
     protected selectFields: string[];
@@ -90,5 +90,5 @@ export declare class BitrixBuilder {
      * Exclui um item por ID.
      * @internal
      */
-    delete(id: number | string | null): Promise<void>;
+    delete(id: number | string | null): Promise<import("@bitrix24/b24jssdk/.").Result<any>>;
 }

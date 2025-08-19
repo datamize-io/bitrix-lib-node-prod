@@ -2,7 +2,7 @@ import { BitrixBuilder } from "../../builders/BitrixBuilder.builder.js";
 export class CustomField extends BitrixBuilder {
     constructor() {
         super(...arguments);
-        this.prefixDefault = "crm.userfield.fields";
+        this.prefixDefault = "userfield";
     }
     /*getByKey(key: string) {
       let response = this.collect({ FILTER: { XML_ID: key } }).map((d) => d.data)[0];
@@ -111,10 +111,10 @@ export class CustomField extends BitrixBuilder {
         return await this.instance.request("crm.userfield.settings.fields", { type: type });
     }
     getFieldName() {
-        return this.getData()?.FIELD_NAME || undefined;
+        return this.getData()?.FIELD_NAME || this.getData()?.upperName;
     }
-    async collect(params, method = null, collectField = "result") {
-        this.setFilterItem("LANG", "br");
+    async collect(params = {}, method = "crm.item.fields", collectField = "result.fields") {
+        //this.setFilterItem("LANG", "br");
         return await super.collect(params, method, collectField);
     }
 }

@@ -1,4 +1,5 @@
 import { BitrixBuilder } from "../../builders/BitrixBuilder.builder.js";
+
 type MergeStatus = "SUCCESS" | "CONFLICT" | "ERROR";
 
 export class Duplicate extends BitrixBuilder {
@@ -12,11 +13,11 @@ export class Duplicate extends BitrixBuilder {
     return this;
   }
 
-  static async findDuplicatedContacts(contacts: Array<string | number>, type: string = "PHONE") {
+  async findByType(entityType: "CONTACT" | "LEAD" | "COMPANY", type: "PHONE" | "EMAIL", contacts: Array<string | number>) {
     if (!contacts || contacts.length === 0) return;
 
     const filter = {
-      entity_type: "CONTACT",
+      entity_type: entityType,
       type: type,
       values: contacts,
     };

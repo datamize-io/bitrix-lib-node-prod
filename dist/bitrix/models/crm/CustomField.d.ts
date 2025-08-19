@@ -23,5 +23,5 @@ export declare class CustomField extends BitrixBuilder {
     getFields(): Promise<import("@bitrix24/b24jssdk/.").Result<any>>;
     getFieldSettings(type: string): Promise<import("@bitrix24/b24jssdk/.").Result<any>>;
     getFieldName(): any;
-    collect(params: any, method?: string | null, collectField?: string | null): Promise<any | this>;
+    collect(params?: any, method?: string | null, collectField?: string | null): Promise<any | this>;
 }

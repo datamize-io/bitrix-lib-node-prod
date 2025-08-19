@@ -27,7 +27,7 @@ export declare abstract class CommentBuilder extends BitrixBuilder implements Co
      * @param typeId O ID do tipo da entidade como número.
      * @returns A instância atual do builder.
      */
-    setItem(value: any, type: string, typeId: number): this;
+    setItem(value: any, type: "LEAD" | "DEAL" | "CONTACT" | "COMPANY" | "SPA"): this;
     /**
      * Define a entidade como um Contato.
      * @param value O ID do contato ou um objeto contendo os dados do contato.
@@ -52,4 +52,6 @@ export declare abstract class CommentBuilder extends BitrixBuilder implements Co
      * @returns A instância atual do builder.
      */
     setText(value: any): this;
+    toPin(): Promise<any>;
+    toUnpin(): Promise<any>;
 }

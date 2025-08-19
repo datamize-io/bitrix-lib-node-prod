@@ -23,9 +23,8 @@ export abstract class CommentBuilder extends BitrixBuilder implements CommentInt
    */
   setDeal(value: any) {
     value = typeof value == "object" ? value.data.id : value;
-    this.setField("ENTITY_ID", value);
     this.setField("ENTITY_TYPE", "DEAL");
-    this.setField("OWNER_TYPE_ID", 2); // Deal
+    this.setField("ENTITY_ID", value); // Deal
     return this;
   }
 
@@ -36,11 +35,14 @@ export abstract class CommentBuilder extends BitrixBuilder implements CommentInt
    * @param typeId O ID do tipo da entidade como número.
    * @returns A instância atual do builder.
    */
-  setItem(value: any, type: string, typeId: number) {
+  setItem(value: any, type: "LEAD" | "DEAL" | "CONTACT" | "COMPANY" | "SPA") {
+    const allowedTypes = ["LEAD", "DEAL", "CONTACT", "COMPANY", "SPA"];
     value = typeof value == "object" ? value.data.id : value;
     this.setField("ENTITY_ID", value);
-    this.setField("ENTITY_TYPE", type);
-    this.setField("OWNER_TYPE_ID", typeId);
+
+    if (!allowedTypes.includes(type)) {
+      this.setField("ENTITY_TYPE", "DYNAMIC_" + type);
+    }
     return this;
   }
 
@@ -89,5 +91,21 @@ export abstract class CommentBuilder extends BitrixBuilder implements CommentInt
   setText(value: any) {
     this.setField("COMMENT", value);
     return this;
+  }
+
+  async toPin() {
+    return await this.requestAndPatch("crm.timeline.item.pin", {
+      id: this.getData().id || this.getData().ID,
+      ownerTypeId: this.getData().OWNER_TYPE_ID,
+      ownerId: this.getData().ENTITY_ID,
+    });
+  }
+
+  async toUnpin() {
+    return await this.requestAndPatch("crm.timeline.item.load", {
+      historyIds: [this.getData().id || this.getData().ID],
+      ownerTypeId: this.getData().ENTITY_TYPE == "CONTACT" ? 3 : 2,
+      ownerId: this.getData().ENTITY_ID,
+    });
   }
 }

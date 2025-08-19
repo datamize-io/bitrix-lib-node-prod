@@ -14,3 +14,4 @@ export * from "./LeadField.js";
 export * from "./Item.js";
 export * from "./Estimate.js";
 export * from "./Invoice.js";
+export * from "./CrmType.js";

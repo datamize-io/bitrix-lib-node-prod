@@ -1,6 +1,4 @@
-import { BitrixBuilder } from "../../builders/BitrixBuilder.builder.js";
-export declare class Comment extends BitrixBuilder {
-    toPin(): Promise<any>;
-    toUnpin(): Promise<any>;
+import { CommentBuilder } from "../../builders/crm/CommentBuilder.builder.js";
+export declare class Comment extends CommentBuilder {
     collectFromContact(contactId: string | number): Promise<any>;
 }

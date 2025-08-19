@@ -5,6 +5,7 @@ export class ItemBuilder extends BitrixBuilder {
         this.prefixDefault = "crm.item";
         this.defaultParams = {
             entityTypeId: null,
+            useOriginalUfNames: "N",
             select: ["*"],
         };
     }
@@ -15,6 +16,9 @@ export class ItemBuilder extends BitrixBuilder {
     setId(id) {
         this.setDataItem("id", id);
         return this;
+    }
+    getData() {
+        return this.data?.item || this.data;
     }
     async collect(params = {}, method = null, collectField = "result") {
         return await super.collect(params, method, "result.items");

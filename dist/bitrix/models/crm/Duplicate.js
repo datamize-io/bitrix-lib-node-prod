@@ -11,11 +11,11 @@ export class Duplicate extends BitrixBuilder {
         });
         return this;
     }
-    static async findDuplicatedContacts(contacts, type = "PHONE") {
+    async findByType(entityType, type, contacts) {
         if (!contacts || contacts.length === 0)
             return;
         const filter = {
-            entity_type: "CONTACT",
+            entity_type: entityType,
             type: type,
             values: contacts,
         };

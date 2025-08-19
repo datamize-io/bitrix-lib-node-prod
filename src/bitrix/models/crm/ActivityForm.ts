@@ -1,6 +1,6 @@
-import { ActivityFormBuilder } from "../../builders/crm/ActivityFormBuilder.builder.js";
+import { ActivityProvider } from "./ActivityProvider.js";
 
-export class ActivityForm extends ActivityFormBuilder {
+export class ActivityForm extends ActivityProvider {
   getParamsFromLastPage() {
     if (!this.data) {
       throw Error("Método getParamsFromLastPage não pode ser chamado antes de coletar os dados da atividade.");
