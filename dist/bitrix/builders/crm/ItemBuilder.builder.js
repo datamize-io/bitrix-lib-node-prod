@@ -5,7 +5,7 @@ export class ItemBuilder extends BitrixBuilder {
         this.prefixDefault = "crm.item";
         this.defaultParams = {
             entityTypeId: null,
-            useOriginalUfNames: "Y",
+            useOriginalUfNames: "N",
             select: ["*"],
         };
     }
