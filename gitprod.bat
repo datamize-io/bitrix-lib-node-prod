@@ -67,6 +67,8 @@ echo.
 echo =========================================
 echo 🚚 Sincronizando DEV -> PROD (robocopy)...
 echo =========================================
+
+robocopy . ../bitrix-lib-node-prod /MIR /XD .git src .gitignore gitprod.sh node_modules docs
 :: Espelha DEV em PROD, mas ignora o que nao deve ir
 :: /MIR = mirror (inclui deletar no destino o que saiu da origem)
 :: /XD  = exclude directories
