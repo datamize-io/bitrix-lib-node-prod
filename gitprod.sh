@@ -13,7 +13,7 @@ fi
 # Caminho da pasta do repo-prod
 PROD_DIR="../bitrix-lib-node-prod"
 
-echo "🔧 Commitando alterações no bitrix-lib-node-prod..."
+echo "🔧 Commitando alterações no bitrix-lib-node"
 git add .
 git commit -m "$MSG"
 git push origin main
@@ -22,7 +22,7 @@ echo "🏗️  Copiando build para bitrix-lib-node-prod..."
 npm ci
 npm run build
 
-robocopy . ../bitrix-lib-node-prod /MIR /XD .git src .gitignore gitprod.sh node_modules docs
+cmd.exe /C 'robocopy . ..\bitrix-lib-node-prod /MIR /XD .git src .gitignore gitprod.sh node_modules docs'
 
 echo "📦 Commitando no bitrix-lib-node-prod..."
 cd "$PROD_DIR"
