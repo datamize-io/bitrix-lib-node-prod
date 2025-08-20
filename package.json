@@ -1,13 +1,14 @@
 {
   "name": "@datamize-io/bitrix-lib-node",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "generate": "node dist/cli.js generate",
     "build": "tsc",
-    "docs": "typedoc"
+    "docs": "typedoc",
+    "git": "gitprod.bat "
   },
   "exports": {
     ".": "./dist/index.js",
