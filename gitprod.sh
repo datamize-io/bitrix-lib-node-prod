@@ -24,7 +24,7 @@ cd ../bitrix-lib-node-prod
 npm ci
 npm run build
 
-robocopy . ..\bitrix-lib-node-prod /MIR /XD .git
+robocopy . ..\bitrix-lib-node-prod /MIR /XD .git src
 
 echo "📦 Commitando no bitrix-lib-node-prod..."
 cd "$PROD_DIR"
