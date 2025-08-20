@@ -4,7 +4,7 @@ export abstract class ItemBuilder extends BitrixBuilder {
   protected prefixDefault: string | null = "crm.item";
   protected defaultParams: Record<string, any | null> = {
     entityTypeId: null,
-    useOriginalUfNames: "N",
+    useOriginalUfNames: "Y",
     select: ["*"],
   };
 
