@@ -71,16 +71,16 @@ echo =========================================
 :: /MIR = mirror (inclui deletar no destino o que saiu da origem)
 :: /XD  = exclude directories
 :: /XF  = exclude files
-robocopy "%DEV_DIR%" "%PROD_DIR%" /MIR ^
-  /XD .git src node_modules docs ^
-  /XF .gitignore gitprod.sh gitprod.bat
+:: robocopy "%DEV_DIR%" "%PROD_DIR%" /MIR ^
+::   /XD .git src node_modules docs ^
+::   /XF .gitignore gitprod.sh gitprod.bat
 
-set "RC=%ERRORLEVEL%"
+:: set "RC=%ERRORLEVEL%"
 :: Robocopy: 0-7 = sucesso/avisos; 8+ = erro
-if %RC% GEQ 8 (
-  echo ❌ Robocopy retornou erro (%RC%).
-  goto :error
-)
+:: if %RC% GEQ 8 (
+::   echo ❌ Robocopy retornou erro (%RC%).
+::   goto :error
+:: )
 
 echo.
 echo ===========================
