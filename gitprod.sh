@@ -24,7 +24,7 @@ cd ../bitrix-lib-node-prod
 npm ci
 npm run build
 
-rsync -av --delete --exclude ".git" ./ ../bitrix-lib-node-prod/
+robocopy . ..\bitrix-lib-node-prod /MIR /XD .git
 
 echo "📦 Commitando no bitrix-lib-node-prod..."
 cd "$PROD_DIR"
