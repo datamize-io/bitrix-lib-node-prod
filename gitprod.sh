@@ -14,13 +14,14 @@ fi
 PROD_DIR="../bitrix-lib-node-prod"
 
 echo "🔧 Commitando alterações no bitrix-lib-node"
-git add .
-git commit -m "$MSG"
-git push origin main
 
 echo "🏗️  Copiando build para bitrix-lib-node-prod..."
 npm ci
 npm run build
+
+git add .
+git commit -m "$MSG"
+git push origin main
 
 cmd.exe /C 'robocopy . ..\bitrix-lib-node-prod /MIR /XD .git src .gitignore gitprod.sh node_modules docs'
 
