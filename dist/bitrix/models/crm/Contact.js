@@ -20,17 +20,11 @@ export class Contact extends ContactBuilder {
             .fm?.filter((d) => d.typeId == "PHONE")
             ?.map((d) => d.value);
         let phoneVariations = [];
-        console.log("Verificando duplicações de contatos");
-        console.log("Emails:", contactEmails);
-        console.log("Telefones:", contactPhones);
         if (contactPhones && contactPhones.length > 0) {
             phoneVariations = PhoneHelper.getAllVariationsOfSamePhones(contactPhones);
         }
-        console.log("Variações de telefone:", phoneVariations);
         const contactPhoneDuplications = await new Duplicate(this.instance).findByType("CONTACT", "PHONE", phoneVariations);
-        console.log("Duplicações de telefone:", contactPhoneDuplications);
         const contactEmailDuplications = await new Duplicate(this.instance).findByType("CONTACT", "EMAIL", contactEmails);
-        console.log("Duplicações de email:", contactEmailDuplications);
         if (contactPhoneDuplications || contactEmailDuplications) {
             return contactPhoneDuplications
                 .concat(contactEmailDuplications)

@@ -74,7 +74,6 @@ export class Item extends ItemBuilder {
             ENTITY_TYPE: this.getEntityTypeName(),
         })
             .collect();
-        console.log(comments);
         if (!comments || comments.getData().length === 0) {
             console.info("Nenhum comentário encontrado para o item %s", this.getData().id);
             return;
@@ -91,8 +90,6 @@ export class Item extends ItemBuilder {
                 const deleteResponse = await comment.delete(comment.getData().ID).catch((error) => {
                     throw Error("Erro ao deletar comentário original:" + error.message);
                 });
-                console.log("Comentário original deletado:");
-                console.log("Comentário transferido com sucesso:", comment.getData().ID);
             });
         });
     }
@@ -103,7 +100,6 @@ export class Item extends ItemBuilder {
             const customEntities = await new CrmType(this.instance).collect().then((entityType) => {
                 const types = entityType?.getData() || [];
                 return types.map((entity) => {
-                    console.log(entity.getData());
                     return entity.getData().entityTypeId;
                 });
             });
@@ -123,7 +119,6 @@ export class Item extends ItemBuilder {
             let entityDynamicName = parentNames[itemData.entityTypeId];
             if (entityTypeId == itemData.entityTypeId)
                 return;
-            console.log(`Buscando um Item, cujo ${entityDynamicName} seja igual a ${itemData.id} na entidade ${entityTypeId}`);
             // Se encontrar algum item, cujo item pai seja o item atual
             let entitiesCollectItems;
             try {
@@ -138,9 +133,7 @@ export class Item extends ItemBuilder {
                 console.log(`Entidade: ${entityTypeId}, Erro: ${error.message}`);
             }
             // Transfere todas as entidades encontradas
-            console.log(`Total encontrado ${entitiesCollectItems?.getData().length}`);
             if (entitiesCollectItems && entitiesCollectItems.getData().length > 0) {
-                console.log("Passando por cada item...");
                 await entitiesCollectItems.getData().forEach(async (entityItem) => {
                     if (entityItem.getData()[entityDynamicName] == itemData.id) {
                         const spaToTransfer = await new Item(this.instance)
@@ -149,9 +142,7 @@ export class Item extends ItemBuilder {
                             .setField(entityDynamicName, newOwnerId);
                         await spaToTransfer
                             .update()
-                            .then((response) => {
-                            console.log(`Transferindo entidade ${entityTypeId} filha: ${entityItem.getData().id}`);
-                        })
+                            .then((response) => { })
                             .catch((error) => {
                             throw new Error(error.message);
                         });
@@ -161,12 +152,10 @@ export class Item extends ItemBuilder {
             // Verificando se possui entidade pai com esse id
             const propertyName = `parentId${entityTypeId}`;
             const parentWithEntity = itemData[propertyName];
-            console.log(`Verificando se existe entidde pai com ${propertyName}: ${parentWithEntity} para entidade ${entityTypeId}`);
             if (parentWithEntity) {
                 const newOwnerItem = await new Item(this.instance).setEntityTypeId(itemData.entityTypeId).get(newOwnerId);
                 newOwnerItem.setId(newOwnerId).setField(propertyName, parentWithEntity).update();
                 this.setId(itemData.id).setField(propertyName, null).update();
-                console.log(`Transferindo entidade ${entityTypeId} pai: ${parentWithEntity}`);
             }
         });
     }
@@ -187,7 +176,6 @@ export class Item extends ItemBuilder {
         console.info("Alterando os campos: " + fieldKeys.join(", "));
         const changedData = {};
         const changedDataText = ["[b]Alteração do Contato " + oldOwnerId + " para o Contato " + newOwnerId + " [/b]"];
-        console.log(itemData);
         //Passando por cada campo
         fieldKeys.forEach(function (fieldKey) {
             let newFieldValue = oldOwner.getData()[fieldKey] || "";
@@ -199,7 +187,6 @@ export class Item extends ItemBuilder {
                 newFieldValue = "";
             }
             if (fieldKey == "fm") {
-                console.log(oldFieldValue);
                 const onlyNewsFm = newFieldValue.filter((fm) => {
                     return oldFieldValue.find((ofm) => ofm.id == fm.id);
                 });
@@ -230,6 +217,7 @@ export class Item extends ItemBuilder {
         });
         // Atribui comentário
         if (Object.keys(changedData).length > 0) {
+            await newOwner.addTimelineLogEntry("Campos alterados por mesclagem", `Este item recebeu campos do item ${itemData.id}.`);
             await newOwner.insertComment("[b][SIZE=14pt][u]Campos alterados por mesclagem:[/u][/SIZE][/b]\n\n" + changedDataText.join("\n "));
             // Atribui todos os campos ao contato mais velho
             await newOwner
@@ -237,9 +225,7 @@ export class Item extends ItemBuilder {
                 id: newOwnerId,
                 fields: changedData,
             })
-                .then((response) => {
-                console.log("Campos atualizados com sucesso.");
-            })
+                .then((response) => { })
                 .catch((error) => {
                 throw Error("Erro ao zerar atualizar campos do item: " + error.message);
             });
@@ -266,18 +252,26 @@ export class Item extends ItemBuilder {
             emptyValuesData[dataKey] = value;
         });
         if (Object.keys(emptyValuesData).length > 0) {
-            console.log(emptyValuesData);
             await this.update({
                 id: itemData.id,
                 fields: emptyValuesData,
             })
-                .then((i) => {
-                console.log(i.getData().result.item);
-            })
+                .then((i) => { })
                 .catch((error) => {
                 throw Error(`Erro ao zerar campos do item ${itemData.entityTypeId}: ${error.message}`);
             });
         }
-        console.log("Campos limpos com sucesso.");
+    }
+    async addTimelineLogEntry(title, text, iconCode = "info") {
+        const { id, entityTypeId } = this.getData();
+        return this.requestAndPatch("crm.timeline.logmessage.add", {
+            fields: {
+                entityTypeId,
+                entityId: id,
+                title,
+                text,
+                iconCode,
+            },
+        });
     }
 }

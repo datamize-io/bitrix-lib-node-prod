@@ -7,4 +7,5 @@ export declare class Item extends ItemBuilder {
     transferEntitiesTo(newOwnerId: string | number, chooseEntities?: number[]): Promise<void>;
     transferAllFieldsTo(newOwnerId: any): Promise<void>;
     clearAllFieldsOfItem(): Promise<void>;
+    addTimelineLogEntry(title: string, text: string, iconCode?: "call" | "arrow-down" | "info"): Promise<any>;
 }
