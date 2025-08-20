@@ -23,7 +23,6 @@ cd "$PROD_DIR"
 git pull origin main || true
 
 echo "🏗️  Copiando build para bitrix-lib-node-prod..."
-cd ../bitrix-lib-node-prod
 npm ci
 npm run build
 
