@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+trap 'echo "❌ Ocorreu um erro!"; read -p "Pressione ENTER para sair..."' ERR
+
+
 MSG="$1"
 if [ -z "$MSG" ]; then
   echo "⚠️  Use: ./gitprod.sh \"mensagem do commit\""
