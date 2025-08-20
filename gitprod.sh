@@ -22,7 +22,7 @@ echo "🏗️  Copiando build para bitrix-lib-node-prod..."
 npm ci
 npm run build
 
-robocopy . ..\bitrix-lib-node-prod /MIR /XD .git src .gitignore gitprod.sh node_modules docs
+robocopy . ../bitrix-lib-node-prod /MIR /XD .git src .gitignore gitprod.sh node_modules docs
 
 echo "📦 Commitando no bitrix-lib-node-prod..."
 cd "$PROD_DIR"
