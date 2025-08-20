@@ -46,7 +46,7 @@ echo.
 echo ===========================
 echo 🏗️  Build do projeto...
 echo ===========================
-call npm ci
+call npm i
 if ERRORLEVEL 1 goto :error
 
 call npm run build
