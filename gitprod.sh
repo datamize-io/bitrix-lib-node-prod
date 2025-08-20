@@ -33,3 +33,4 @@ git commit -m "Build: $MSG"
 git push origin main
 
 echo "✅ Sincronização concluída!"
+pause
