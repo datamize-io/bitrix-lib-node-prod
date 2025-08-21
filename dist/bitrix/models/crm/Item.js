@@ -218,7 +218,7 @@ export class Item extends ItemBuilder {
         // Atribui comentário
         if (Object.keys(changedData).length > 0) {
             await newOwner.addTimelineLogEntry("Campos alterados por mesclagem", `Este item recebeu campos do item ${itemData.id}.`);
-            await newOwner.insertComment("[b][SIZE=14pt][u]Campos alterados por mesclagem:[/u][/SIZE][/b]\n\n" + changedDataText.join("\n "));
+            //await newOwner.setContact(newOwnerId).insertComment("[b][SIZE=14pt][u]Campos alterados por mesclagem:[/u][/SIZE][/b]\n\n" + changedDataText.join("\n "));
             // Atribui todos os campos ao contato mais velho
             await newOwner
                 .update({
