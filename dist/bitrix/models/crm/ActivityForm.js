@@ -4,6 +4,8 @@ export class ActivityForm extends ActivityProvider {
         if (!this.data) {
             throw Error("Método getParamsFromLastPage não pode ser chamado antes de coletar os dados da atividade.");
         }
+        if (this.data.PROVIDER !== "CRM_WEBFORM")
+            throw Error("Esta atividade não é de envio de formulário.");
         if (!this.data.PROVIDER_PARAMS || !Array.isArray(this.data.PROVIDER_PARAMS.VISITED_PAGES)) {
             throw Error("VISITED_PAGES não é um array.");
         }

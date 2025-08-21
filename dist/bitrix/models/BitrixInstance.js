@@ -147,7 +147,7 @@ export class BitrixInstance {
             }
             params.auth = this.accessToken;
         }
-        if (this.LOG) {
+        if (this.LOG == true) {
             console.log(method, params);
         }
         return isBatch ? this.client.callBatch({ [method]: { method, params } }) : this.client.callMethod(method, params);

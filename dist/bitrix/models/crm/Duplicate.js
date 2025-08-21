@@ -21,7 +21,6 @@ export class Duplicate extends BitrixBuilder {
         };
         const duplicate = new Duplicate(this.instance);
         const request = await duplicate.requestAndPatch("crm.duplicate.findbycomm", filter);
-        console.log(request);
         return request.getData()?.CONTACT || [];
     }
     static async doMerge(data) {

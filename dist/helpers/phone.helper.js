@@ -1,6 +1,5 @@
 export class PhoneHelper {
     static getAllVariationsOfSamePhones(phones) {
-        console.log("Verificando os números");
         const result = new Set(phones.map((p) => String(p).replace("+", "")));
         [...result].forEach((phone) => {
             if (!phone.startsWith("55") && phone.length < 10)

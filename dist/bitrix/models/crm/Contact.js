@@ -12,7 +12,6 @@ export class Contact extends ContactBuilder {
         });
     }
     async getDuplications() {
-        console.log(this.getData().name);
         const contactEmails = this.getData()
             .fm?.filter((d) => d.typeId == "EMAILS")
             .map((d) => d.value);
