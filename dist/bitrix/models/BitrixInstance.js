@@ -143,15 +143,13 @@ export class BitrixInstance {
         params = this.getDefaultParams(params);
         if (this.accessToken && this.refreshToken) {
             if (this.isTokenExpired()) {
-                console.log("Refreshing accessToken");
                 await this.refreshAccessToken();
-            }
-            else {
-                console.log("Not expired %s", new Date(this.expiresAt).toLocaleString("pt-BR"));
             }
             params.auth = this.accessToken;
         }
-        console.log(method, params);
+        if (this.LOG) {
+            console.log(method, params);
+        }
         return isBatch ? this.client.callBatch({ [method]: { method, params } }) : this.client.callMethod(method, params);
     }
 }
