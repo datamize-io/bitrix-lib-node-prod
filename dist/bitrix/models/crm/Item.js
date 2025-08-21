@@ -160,6 +160,8 @@ export class Item extends ItemBuilder {
         });
     }
     async transferAllFieldsTo(newOwnerId) {
+        const beforeChangeDefaultParams = { ...this.defaultParams };
+        this.setFormatFields("NEW");
         const itemData = this.getData();
         const oldOwnerId = itemData.id;
         const CustomFieldsCollect = await new CustomField(this.instance).collect({ entityTypeId: itemData.entityTypeId });
@@ -228,6 +230,9 @@ export class Item extends ItemBuilder {
                 .then((response) => { })
                 .catch((error) => {
                 throw Error("Erro ao zerar atualizar campos do item: " + error.message);
+            })
+                .finally((response) => {
+                this.defaultParams = beforeChangeDefaultParams;
             });
         }
     }
