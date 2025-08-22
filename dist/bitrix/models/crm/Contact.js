@@ -11,6 +11,25 @@ export class Contact extends ContactBuilder {
             filter: { contactId: this.getData().ID },
         });
     }
+    async getByPhone(phone) {
+        return await this.getByPhones([phone]);
+    }
+    async getByPhones(phones) {
+        const contactPhones = this.getData()
+            .fm?.filter((d) => d.typeId == "PHONE")
+            ?.map((d) => d.value);
+        let phoneVariations = [];
+        if (contactPhones && contactPhones.length > 0) {
+            phoneVariations = PhoneHelper.getAllVariationsOfSamePhones(contactPhones);
+        }
+        const ids = await new Duplicate(this.instance).findByType("CONTACT", "PHONE", phoneVariations);
+        if (ids.length > 0) {
+            return await this.get(ids.shift());
+        }
+        else {
+            return undefined;
+        }
+    }
     async getDuplications() {
         const contactEmails = this.getData()
             .fm?.filter((d) => d.typeId == "EMAILS")
