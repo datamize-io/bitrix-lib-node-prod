@@ -270,9 +270,9 @@ export class Item extends ItemBuilder {
     async addTimelineLogEntry(title, text, iconCode = "info") {
         const { id, entityTypeId } = this.getData();
         return this.requestAndPatch("crm.timeline.logmessage.add", {
-            entityTypeId: entityTypeId,
+            entityTypeId: this.defaultParams.entityTypeId,
             fields: {
-                entityTypeId: entityTypeId,
+                entityTypeId: this.defaultParams.entityTypeId,
                 entityId: id,
                 title,
                 text,
