@@ -1,6 +1,7 @@
 import { Item } from "./Item.js";
 export declare class Lead extends Item {
     protected defaultParams: Record<string, any | null>;
+    isStatus(status: "OPEN" | "SUCCESS" | "FAILED"): boolean;
     setContact(value: any): Lead;
     setContacts(value: any[]): Lead;
     setName(value: any): Lead;

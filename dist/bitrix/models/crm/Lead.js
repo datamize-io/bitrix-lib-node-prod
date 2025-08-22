@@ -8,6 +8,19 @@ export class Lead extends Item {
             select: ["*"],
         };
     }
+    isStatus(status) {
+        switch (status) {
+            case "OPEN":
+                return this.getData().STATUS_SEMANTIC_ID == "P";
+                break;
+            case "SUCCESS":
+                return this.getData().STATUS_SEMANTIC_ID == "S";
+                break;
+            case "FAILED":
+                return this.getData().STATUS_SEMANTIC_ID == "F";
+                break;
+        }
+    }
     setContact(value) {
         if (!value)
             return this;
