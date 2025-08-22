@@ -6,4 +6,5 @@ export declare class ImBot extends ImBotBuilder {
     skipToFreeOperator(chatId: number): Promise<any>;
     sessionTransfer(chatId: number, userId: number, leave: "Y" | "N"): Promise<any>;
     sendMessage(chatId: number, message: string, name?: "WELCOME" | "DEFAULT"): Promise<any>;
+    list(): Promise<any>;
 }

@@ -27,4 +27,7 @@ export class ImBot extends ImBotBuilder {
             NAME: name,
         });
     }
+    async list() {
+        return this.requestAndPatch("imbot.bot.list", {});
+    }
 }
