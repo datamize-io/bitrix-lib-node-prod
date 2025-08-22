@@ -5,3 +5,4 @@ export * from "./OpenLineDialog.js";
 export * from "./OpenLineOperator.js";
 export * from "./OpenLineMessage.js";
 export * from "./OpenLineBot.js";
+export * from "./ImBot.js";
