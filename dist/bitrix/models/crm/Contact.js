@@ -15,13 +15,9 @@ export class Contact extends ContactBuilder {
         return await this.getByPhones([phone]);
     }
     async getByPhones(phones) {
-        const contactPhones = this.getData()
-            .fm?.filter((d) => d.typeId == "PHONE")
-            ?.map((d) => d.value);
-        let phoneVariations = [];
-        if (contactPhones && contactPhones.length > 0) {
-            phoneVariations = PhoneHelper.getAllVariationsOfSamePhones(contactPhones);
-        }
+        if (!phones || phones.length == 0)
+            throw Error("Parâmetro phones é obrigatórios.");
+        let phoneVariations = PhoneHelper.getAllVariationsOfSamePhones(phones);
         const ids = await new Duplicate(this.instance).findByType("CONTACT", "PHONE", phoneVariations);
         if (ids.length > 0) {
             return await this.get(ids.shift());
