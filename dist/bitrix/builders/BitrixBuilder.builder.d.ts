@@ -65,7 +65,7 @@ export declare class BitrixBuilder {
      * Atualiza os dados internos da instância com o resultado da requisição.
      * @internal
      */
-    patch(params: any, field: string | null): any;
+    patch(params: any, field?: string | null): any;
     /**
      * Insere dados no Bitrix.
      * @internal
