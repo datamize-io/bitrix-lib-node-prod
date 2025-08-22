@@ -272,6 +272,7 @@ export class Item extends ItemBuilder {
         return this.requestAndPatch("crm.timeline.logmessage.add", {
             entityTypeId,
             fields: {
+                entityTypeId,
                 entityId: id,
                 title,
                 text,
