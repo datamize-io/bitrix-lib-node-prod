@@ -3,6 +3,9 @@ export class ImBot extends ImBotBuilder {
     async register(registerPayload) {
         return this.requestAndPatch("imbot.register", registerPayload);
     }
+    async update(registerPayload) {
+        return this.requestAndPatch("imbot.update", registerPayload);
+    }
     async sessionFinish(chatId) {
         return this.requestAndPatch("imopenlines.bot.session.finish", {
             CHAT_ID: chatId,
