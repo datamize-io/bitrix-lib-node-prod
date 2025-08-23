@@ -1,6 +1,6 @@
 import { ImBotBuilder } from "../../builders/im/ImBotBuilder.builder.js";
 import { ImbotRegisterPayload } from "../../interfaces/im/ImBotInterface.interface.js";
-interface CommandRegister {
+type CommandRegister = {
     BOT_ID: number;
     COMMAND: string;
     COMMON: "Y" | "N";
@@ -9,11 +9,15 @@ interface CommandRegister {
     CLIENT_ID: "Y" | "N";
     LANG: "Y" | "N";
     EVENT_COMMAND_ADD: "Y" | "N";
-}
+};
+type BotId = {
+    BOT_ID: number;
+};
+type ImbotUpdateRegisterPayload = ImbotRegisterPayload & BotId;
 export declare class ImBot extends ImBotBuilder {
     getDialogByChatEntityId(userCode: string): Promise<any>;
     register(registerPayload: ImbotRegisterPayload): Promise<any>;
-    update(registerPayload: ImbotRegisterPayload): Promise<any>;
+    update(registerPayload: ImbotUpdateRegisterPayload): Promise<any>;
     sessionFinish(chatId: number): Promise<any>;
     skipToFreeOperator(chatId: number): Promise<any>;
     sessionTransfer(chatId: number, userId: number, leave: "Y" | "N"): Promise<any>;
