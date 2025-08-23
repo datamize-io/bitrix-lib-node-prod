@@ -117,9 +117,15 @@ export class Connector extends ConnectorBuilder {
     }
     // ===== Chat =====
     /**
-     * Define o nome do chat associado ao conector.
+     * Troca nome do chat
      */
-    setChatName() {
-        // implementação futura
+    async changeChatName(connectorId, lineId, chatId, name) {
+        const payload = {
+            CONNECTOR: connectorId,
+            LINE: lineId,
+            CHAT_ID: chatId,
+            NAME: name,
+        };
+        return await this.requestAndPatch("imconnector.chat.name.set", payload);
     }
 }

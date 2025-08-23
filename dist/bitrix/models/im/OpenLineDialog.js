@@ -54,7 +54,7 @@ export class OpenLineDialog extends OpenLineDialogBuilder {
      * @returns Detalhes da sessão.
      */
     async startByUserCode(userCode) {
-        const stringUserCode = userCode.build();
+        const stringUserCode = typeof userCode == "string" ? userCode : userCode.build();
         return await this.requestAndPatch("imopenlines.session.open", {
             USER_CODE: stringUserCode,
         });
@@ -189,7 +189,7 @@ export class OpenLineDialog extends OpenLineDialogBuilder {
      * @returns Dados do diálogo.
      */
     async getByUserCode(userCode) {
-        const stringUserCode = userCode.build();
+        const stringUserCode = typeof userCode == "string" ? userCode : userCode.build();
         return await this.requestAndPatch("imopenlines.dialog.get", {
             USER_CODE: stringUserCode,
         });

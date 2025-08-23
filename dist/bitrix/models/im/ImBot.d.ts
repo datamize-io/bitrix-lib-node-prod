@@ -1,6 +1,7 @@
 import { ImBotBuilder } from "../../builders/im/ImBotBuilder.builder.js";
 import { ImbotRegisterPayload } from "../../interfaces/im/ImBotInterface.interface.js";
 export declare class ImBot extends ImBotBuilder {
+    getDialogByChatEntityId(userCode: string): Promise<any>;
     register(registerPayload: ImbotRegisterPayload): Promise<any>;
     update(registerPayload: ImbotRegisterPayload): Promise<any>;
     sessionFinish(chatId: number): Promise<any>;

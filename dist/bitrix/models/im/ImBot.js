@@ -1,5 +1,9 @@
 import { ImBotBuilder } from "../../builders/im/ImBotBuilder.builder.js";
+import { OpenLineDialog } from "./OpenLineDialog.js";
 export class ImBot extends ImBotBuilder {
+    getDialogByChatEntityId(userCode) {
+        return new OpenLineDialog(this.instance).getByUserCode(userCode);
+    }
     async register(registerPayload) {
         return this.requestAndPatch("imbot.register", registerPayload);
     }

@@ -79,7 +79,7 @@ export declare class Connector extends ConnectorBuilder {
      */
     updateStatus(status: "delivered" | "read"): void;
     /**
-     * Define o nome do chat associado ao conector.
+     * Troca nome do chat
      */
-    setChatName(): void;
+    changeChatName(connectorId: string, lineId: string | number, chatId: string | number, name: string): Promise<any>;
 }

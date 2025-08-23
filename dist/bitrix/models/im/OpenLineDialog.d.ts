@@ -40,7 +40,7 @@ export declare class OpenLineDialog extends OpenLineDialogBuilder implements Ope
      * @param userCode Instância de `UserCodeBuilder`.
      * @returns Detalhes da sessão.
      */
-    startByUserCode(userCode: UserCodeBuilder): Promise<any>;
+    startByUserCode(userCode: UserCodeBuilder | string): Promise<any>;
     /**
      * Entra em uma sessão ativa de atendimento.
      *
@@ -126,5 +126,5 @@ export declare class OpenLineDialog extends OpenLineDialogBuilder implements Ope
      * @param userCode Instância de `UserCodeBuilder`.
      * @returns Dados do diálogo.
      */
-    getByUserCode(userCode: UserCodeBuilder): Promise<any>;
+    getByUserCode(userCode: UserCodeBuilder | string): Promise<any>;
 }
