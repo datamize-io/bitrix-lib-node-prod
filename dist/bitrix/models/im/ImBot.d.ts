@@ -13,7 +13,9 @@ type CommandRegister = {
 type BotId = {
     BOT_ID: number;
 };
-type ImbotUpdateRegisterPayload = ImbotRegisterPayload & BotId;
+type ImbotUpdateRegisterPayload = BotId & {
+    fields: ImbotRegisterPayload;
+};
 export declare class ImBot extends ImBotBuilder {
     getDialogByChatEntityId(userCode: string): Promise<any>;
     register(registerPayload: ImbotRegisterPayload): Promise<any>;
