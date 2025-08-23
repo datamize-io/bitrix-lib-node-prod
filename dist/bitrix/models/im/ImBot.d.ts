@@ -12,6 +12,7 @@ type CommandRegister = {
 };
 type BotId = {
     BOT_ID: number;
+    CLIENT_ID?: string;
 };
 type ImbotUpdateRegisterPayload = BotId & {
     fields: ImbotRegisterPayload;
