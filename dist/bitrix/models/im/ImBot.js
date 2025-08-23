@@ -37,4 +37,23 @@ export class ImBot extends ImBotBuilder {
     async list() {
         return this.requestAndPatch("imbot.bot.list", {});
     }
+    //imbot.command.register
+    async commandRegister(payloadData) {
+        return this.requestAndPatch("imbot.command.register", payloadData);
+    }
+    //imbot.command.register
+    async commandAnswer(payloadData) {
+        return this.requestAndPatch("imbot.command.answer", payloadData);
+    }
+    //imbot.command.register
+    async commandUnregister(payloadData) {
+        return this.requestAndPatch("imbot.command.unregister", payloadData);
+    }
+    //imbot.command.
+    async commandUpdate(COMMAND_ID, CLIENT_ID) {
+        return this.requestAndPatch("imbot.command.update", {
+            COMMAND_ID,
+            CLIENT_ID,
+        });
+    }
 }
