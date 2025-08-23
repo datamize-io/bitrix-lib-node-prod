@@ -12,4 +12,5 @@ export declare class UserCodeBuilder {
     build(): string;
 }
 export declare abstract class OpenLineDialogBuilder extends BitrixBuilder implements OpenLineDialogInterface {
+    getSessionId(): any;
 }

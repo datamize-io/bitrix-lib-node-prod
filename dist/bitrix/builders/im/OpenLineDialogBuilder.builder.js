@@ -24,4 +24,7 @@ export class UserCodeBuilder {
     }
 }
 export class OpenLineDialogBuilder extends BitrixBuilder {
+    getSessionId() {
+        return this.getData().entity_data_1.split("|")[5];
+    }
 }
