@@ -194,4 +194,19 @@ export class OpenLineDialog extends OpenLineDialogBuilder {
             USER_CODE: stringUserCode,
         });
     }
+    /**
+     * Inicia uma bifurcação através de uma mensagem.
+     *
+     * @param CHAT_ID Número encontrado em Dialog.data.id.
+     * @param MESSAGE_ID Mensagem enviada, por padrão Dialog.data.last_message_id.
+     * @returns Resposta do Bitrix.
+     */
+    async startNewDialogSession(CHAT_ID = null, MESSAGE_ID = null) {
+        CHAT_ID = CHAT_ID || this.getData().id;
+        MESSAGE_ID = MESSAGE_ID || this.getData().last_message_id;
+        return await this.requestAndPatch("imopenlines.message.session.start", {
+            CHAT_ID,
+            MESSAGE_ID,
+        });
+    }
 }

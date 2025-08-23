@@ -27,4 +27,16 @@ export class OpenLineDialogBuilder extends BitrixBuilder {
     getSessionId() {
         return this.getData().entity_data_1.split("|")[5];
     }
+    getLeadId() {
+        return this.getData().entity_data_2.split("|")[1];
+    }
+    getCompanyId() {
+        return this.getData().entity_data_2.split("|")[3];
+    }
+    getContactId() {
+        return this.getData().entity_data_2.split("|")[5];
+    }
+    getDealId() {
+        return this.getData().entity_data_2.split("|")[7];
+    }
 }

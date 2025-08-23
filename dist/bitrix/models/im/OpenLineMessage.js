@@ -3,7 +3,7 @@ export class OpenLineMessage extends OpenLineMessageBuilder {
     async add(entity, entityId, userId, chatId, message) {
         return await this.requestData("imopenlines.crm.message.add", {
             CRM_ENTITY_TYPE: entity,
-            CRM_ENTITY_ID: entityId,
+            CRM_ENTITY: entityId,
             USER_ID: userId,
             CHAT_ID: chatId,
             MESSAGE: message,

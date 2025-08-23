@@ -127,4 +127,12 @@ export declare class OpenLineDialog extends OpenLineDialogBuilder implements Ope
      * @returns Dados do diálogo.
      */
     getByUserCode(userCode: UserCodeBuilder | string): Promise<any>;
+    /**
+     * Inicia uma bifurcação através de uma mensagem.
+     *
+     * @param CHAT_ID Número encontrado em Dialog.data.id.
+     * @param MESSAGE_ID Mensagem enviada, por padrão Dialog.data.last_message_id.
+     * @returns Resposta do Bitrix.
+     */
+    startNewDialogSession(CHAT_ID?: number | null, MESSAGE_ID?: number | null): Promise<any>;
 }
