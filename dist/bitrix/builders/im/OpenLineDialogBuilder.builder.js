@@ -25,18 +25,23 @@ export class UserCodeBuilder {
 }
 export class OpenLineDialogBuilder extends BitrixBuilder {
     getSessionId() {
-        return this.getData().entity_data_1.split("|")[5];
+        const data = this.getData().entity_data_1;
+        return data?.split("|")[5] || undefined;
     }
     getLeadId() {
-        return this.getData().entity_data_2.split("|")[1];
+        const data = this.getData().entity_data_2;
+        return data?.split("|")[1] || undefined;
     }
     getCompanyId() {
-        return this.getData().entity_data_2.split("|")[3];
+        const data = this.getData().entity_data_2;
+        return data?.split("|")[3] || undefined;
     }
     getContactId() {
-        return this.getData().entity_data_2.split("|")[5];
+        const data = this.getData().entity_data_2;
+        return data?.split("|")[5] || undefined;
     }
     getDealId() {
-        return this.getData().entity_data_2.split("|")[7];
+        const data = this.getData().entity_data_2;
+        return data?.split("|")[7] || undefined;
     }
 }
