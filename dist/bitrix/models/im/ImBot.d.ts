@@ -3,12 +3,12 @@ import { ImbotRegisterPayload } from "../../interfaces/im/ImBotInterface.interfa
 type CommandRegister = {
     BOT_ID: number;
     COMMAND: string;
-    COMMON: "Y" | "N";
-    HIDDEN: "Y" | "N";
-    EXTRANET_SUPPORT: "Y" | "N";
-    CLIENT_ID: "Y" | "N";
-    LANG: "Y" | "N";
-    EVENT_COMMAND_ADD: "Y" | "N";
+    COMMON?: "Y" | "N";
+    HIDDEN?: "Y" | "N";
+    EXTRANET_SUPPORT?: "Y" | "N";
+    CLIENT_ID?: string;
+    LANG: Array<Record<string, any>>;
+    EVENT_COMMAND_ADD: string;
 };
 type BotId = {
     BOT_ID: number;
