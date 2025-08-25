@@ -12,8 +12,14 @@
     "declaration": true,
     "emitDeclarationOnly": false,
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@datamize-io/bitrix-lib-node": ["src/index.ts"],
+      "@datamize-io/bitrix-lib-node/*": ["src/*"]
+    }
   },
-  "include": ["src/**/*"],
+
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,9 +1,9 @@
-import { BitrixBuilder } from "../BitrixBuilder.builder.js";
+import { Item } from "../../models/crm/Item.js";
 /**
  * Classe abstrata para construção de entidades de orçamento (Estimate) no CRM do Bitrix.
  * Implementa a interface EstimateInterface e fornece parâmetros padrão para requisições relacionadas a orçamentos.
  */
-export class EstimateBuilder extends BitrixBuilder {
+export class EstimateBuilder extends Item {
     constructor() {
         super(...arguments);
         /**

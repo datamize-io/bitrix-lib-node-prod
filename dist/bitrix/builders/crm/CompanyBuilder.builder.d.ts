@@ -1,5 +1,4 @@
-import { CompanyInterface } from "../../interfaces/crm/CompanyInterface.interface.js";
-import { ItemBuilder } from "./ItemBuilder.builder.js";
-export declare abstract class CompanyBuilder extends ItemBuilder implements CompanyInterface {
+import { Item } from "../../models/crm/Item.js";
+export declare abstract class CompanyBuilder extends Item {
     protected defaultParams: Record<string, any | null>;
 }

@@ -1,5 +1,5 @@
-import { ItemBuilder } from "./ItemBuilder.builder.js";
-export class DealBuilder extends ItemBuilder {
+import { Item } from "../../models/crm/Item.js";
+export class DealBuilder extends Item {
     constructor() {
         super(...arguments);
         this.defaultParams = {

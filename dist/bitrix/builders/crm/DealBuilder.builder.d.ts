@@ -1,5 +1,5 @@
-import { ItemBuilder } from "./ItemBuilder.builder.js";
-export declare abstract class DealBuilder extends ItemBuilder {
+import { Item } from "../../models/crm/Item.js";
+export declare abstract class DealBuilder extends Item {
     protected defaultParams: Record<string, any | null>;
     /**
      * Define um contato principal para a negociação.

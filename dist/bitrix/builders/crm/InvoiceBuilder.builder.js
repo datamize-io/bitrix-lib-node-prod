@@ -1,5 +1,5 @@
-import { BitrixBuilder } from "../BitrixBuilder.builder.js";
-export class InvoiceBuilder extends BitrixBuilder {
+import { Item } from "../../models/crm/Item.js";
+export class InvoiceBuilder extends Item {
     constructor() {
         super(...arguments);
         this.defaultParams = {

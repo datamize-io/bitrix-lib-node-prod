@@ -1,3 +1,4 @@
+import { Item } from "../../models/crm/Item.js";
 import { BitrixBuilder } from "../BitrixBuilder.builder.js";
 export class ItemBuilder extends BitrixBuilder {
     constructor() {
@@ -8,6 +9,9 @@ export class ItemBuilder extends BitrixBuilder {
             useOriginalUfNames: "Y",
             select: ["*"],
         };
+    }
+    asItem() {
+        return new Item(this.instance).setId(this.getData().id).setEntityTypeId(this.getData().defaultParams.entityTypeId);
     }
     setFormatFields(type) {
         this.defaultParams.userOriginalUFNames = type == "NEW" ? "N" : "Y";

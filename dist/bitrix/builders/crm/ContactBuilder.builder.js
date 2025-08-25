@@ -1,9 +1,9 @@
-import { ItemBuilder } from "./ItemBuilder.builder.js";
+import { Item } from "../../index.js";
 /**
  * Classe abstrata para construção de entidades de contato no CRM do Bitrix.
  * Fornece métodos para definir campos padrão e personalizados de um contato.
  */
-export class ContactBuilder extends ItemBuilder {
+export class ContactBuilder extends Item {
     constructor() {
         super(...arguments);
         /**
