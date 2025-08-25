@@ -20,6 +20,7 @@ export declare class OpenLineChat extends OpenLineChatBuilder {
      * ```
      */
     getChatsByEntityId(entity: "lead" | "deal" | "contact" | "company", id: string | number, onlyActiveChats?: "Y" | "N"): Promise<any>;
+    searchChat(findQuery: string): Promise<any>;
     /**
      * Obtém o ID do último chat aberto relacionado à entidade do CRM.
      *

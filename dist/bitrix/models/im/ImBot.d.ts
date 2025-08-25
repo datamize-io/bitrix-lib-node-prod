@@ -14,13 +14,15 @@ type BotId = {
     BOT_ID: number;
     CLIENT_ID?: string;
 };
-type ImbotUpdateRegisterPayload = BotId & {
+type ImbotUpdatePayload = BotId & {
     fields: ImbotRegisterPayload;
 };
 export declare class ImBot extends ImBotBuilder {
     getDialogByChatEntityId(userCode: string): Promise<any>;
+    insert(registerPayload: ImbotRegisterPayload): Promise<any>;
     register(registerPayload: ImbotRegisterPayload): Promise<any>;
-    update(registerPayload: ImbotUpdateRegisterPayload): Promise<any>;
+    update(registerPayload: ImbotUpdatePayload): Promise<any>;
+    unregister(botId: string | number, clientId: string): Promise<any>;
     sessionFinish(chatId: number): Promise<any>;
     skipToFreeOperator(chatId: number): Promise<any>;
     sessionTransfer(chatId: number, userId: number, leave: "Y" | "N"): Promise<any>;

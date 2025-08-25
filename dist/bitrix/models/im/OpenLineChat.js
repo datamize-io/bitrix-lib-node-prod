@@ -26,6 +26,11 @@ export class OpenLineChat extends OpenLineChatBuilder {
             ACTIVE_ONLY: onlyActiveChats,
         });
     }
+    async searchChat(findQuery) {
+        return await this.requestAndPatch("im.search.chat.list", {
+            FIND: findQuery,
+        });
+    }
     /**
      * Obtém o ID do último chat aberto relacionado à entidade do CRM.
      *
@@ -103,7 +108,10 @@ export class OpenLineChat extends OpenLineChatBuilder {
      * const chats = await openLine.collect({ CRM_ENTITY_TYPE: "LEAD" });
      * ```
      */
-    async collect(params, method, collectField = "result") {
-        return await super.collect(params, "imopenlines.crm.chat.get", collectField);
+    async collect(params, method, collectField = "result.items") {
+        params = params || {};
+        params.SKIP_CHAT = "Y";
+        params.SKIP_DIALOG = "Y";
+        return await super.collect(params, "im.recent.list", collectField);
     }
 }

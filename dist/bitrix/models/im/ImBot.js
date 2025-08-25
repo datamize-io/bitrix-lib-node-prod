@@ -4,11 +4,20 @@ export class ImBot extends ImBotBuilder {
     getDialogByChatEntityId(userCode) {
         return new OpenLineDialog(this.instance).getByUserCode(userCode);
     }
+    async insert(registerPayload) {
+        return this.register(registerPayload);
+    }
     async register(registerPayload) {
         return this.requestAndPatch("imbot.register", registerPayload);
     }
     async update(registerPayload) {
         return this.requestAndPatch("imbot.update", registerPayload);
+    }
+    async unregister(botId, clientId) {
+        return this.requestAndPatch("imbot.unregister", {
+            CLIENT_ID: clientId,
+            BOT_ID: botId,
+        });
     }
     async sessionFinish(chatId) {
         return this.requestAndPatch("imopenlines.bot.session.finish", {
