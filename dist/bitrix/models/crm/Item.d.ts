@@ -1,6 +1,6 @@
 import { ItemBuilder } from "../../builders/crm/ItemBuilder.builder.js";
 export declare class Item extends ItemBuilder {
-    getEntityTypeName(): "DEAL" | "LEAD" | "CONTACT" | "COMPANY" | "SPA" | "QUOTE" | "INVOICE" | "ORDER" | "SMART_INVOICE";
+    getEntityTypeName(): "LEAD" | "DEAL" | "CONTACT" | "COMPANY" | "QUOTE" | "INVOICE" | "ORDER" | "SMART_INVOICE" | "SPA";
     insertComment(comment: string): Promise<any>;
     transferAllActivitiesTo(newOwnerId: string | number): Promise<void>;
     transferAllCommentsTo(newOwnerId: string | number): Promise<void>;

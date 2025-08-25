@@ -1,3 +1,4 @@
+export * from "./Item.js";
 export * from "./Pipeline.js";
 export * from "./Activity.js";
 export * from "./ActivityForm.js";
@@ -11,7 +12,6 @@ export * from "./Product.js";
 export * from "./DealField.js";
 export * from "./ContactField.js";
 export * from "./LeadField.js";
-export * from "./Item.js";
 export * from "./Estimate.js";
 export * from "./Invoice.js";
 export * from "./CrmType.js";
