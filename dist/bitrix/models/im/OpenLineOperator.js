@@ -10,4 +10,10 @@ export class OpenLineOperator extends OpenLineOperatorBuilder {
             CHAT_ID: chatId,
         });
     }
+    async transfer(chatId, transferId) {
+        return this.requestData("imopenlines.operator.transfer", {
+            CHAT_ID: chatId,
+            TRANSFER_ID: transferId,
+        });
+    }
 }
