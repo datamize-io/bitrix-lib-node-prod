@@ -20,7 +20,7 @@ export class OpenLineChat extends OpenLineChatBuilder {
      * ```
      */
     async getChatsByEntityId(entity, id, onlyActiveChats = "Y") {
-        return await this.collect({
+        return await this.requestAndPatch("imopenlines.crm.chat.get", {
             CRM_ENTITY_TYPE: entity,
             CRM_ENTITY: id,
             ACTIVE_ONLY: onlyActiveChats,
