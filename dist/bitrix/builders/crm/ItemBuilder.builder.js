@@ -31,4 +31,7 @@ export class ItemBuilder extends BitrixBuilder {
     async collect(params = {}, method = null, collectField = "result") {
         return await super.collect(params, method, "result.items");
     }
+    async collectAll(params = {}, method = null, collectField = "result") {
+        return await super.collectAll(params, method, "result.items");
+    }
 }

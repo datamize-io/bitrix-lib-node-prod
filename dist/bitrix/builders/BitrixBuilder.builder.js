@@ -1,3 +1,4 @@
+import { UrlHelper } from "../../helpers/url.helper.js";
 /**
  * Classe base para criação de builders Bitrix.
  * Define a estrutura comum de operações como get, insert, update, etc.
@@ -207,6 +208,33 @@ export class BitrixBuilder {
         method = method || this.prefixDefault + ".update";
         return this.instance.request(method, params);
     }
+    collectProcessData(data, collectField = "result") {
+        if (collectField) {
+            if (collectField.includes(".")) {
+                const collectFields = collectField.split(".");
+                collectFields.forEach((field) => {
+                    if (data[field]) {
+                        data = data[field];
+                    }
+                    else {
+                        throw Error(`Campo ${collectField} não encontrado no resultado.`);
+                    }
+                });
+            }
+            else {
+                data = data[collectField];
+            }
+        }
+        if (!Array.isArray(data)) {
+            data = this.data ? [data] : [];
+        }
+        const instanceClass = Object.getPrototypeOf(this).constructor;
+        const instance = this.instance;
+        return data.map((collectItem) => {
+            const newEntity = new instanceClass(instance);
+            return newEntity.patch(collectItem, null);
+        });
+    }
     /**
      * Coleta dados da API e mapeia para instâncias da classe.
      * @internal
@@ -219,32 +247,8 @@ export class BitrixBuilder {
         params.select = params.select || this.selectFields;
         const result = await this.instance.request(method, params);
         if (result.isSuccess) {
-            const instanceClass = Object.getPrototypeOf(this).constructor;
-            const instance = this.instance;
             let data = result.getData();
-            if (collectField) {
-                if (collectField.includes(".")) {
-                    const collectFields = collectField.split(".");
-                    collectFields.forEach((field) => {
-                        if (data[field]) {
-                            data = data[field];
-                        }
-                        else {
-                            throw Error(`Campo ${collectField} não encontrado no resultado.`);
-                        }
-                    });
-                }
-                else {
-                    data = data[collectField];
-                }
-            }
-            if (!Array.isArray(data)) {
-                data = this.data ? [data] : [];
-            }
-            this.data = data.map((collectItem) => {
-                const newEntity = new instanceClass(instance);
-                return newEntity.patch(collectItem, null);
-            });
+            this.data = this.collectProcessData(data, collectField);
             return this;
         }
         else {
@@ -264,5 +268,46 @@ export class BitrixBuilder {
             }
         }
         return await this.instance.request(this.prefixDefault + ".delete", { id: id || this.data.ID || this.data.id });
+    }
+    async collectAll(parameters = {}, endpoint = null, collectField = "result") {
+        const batch = await this.buildBatch(parameters, endpoint, 0, "all");
+        const resultData = batch?.result?.result;
+        const entity = this.constructor;
+        let allData = [];
+        if (resultData) {
+            const requestItem = this;
+            Object.values(resultData).forEach((resultChunk, idx) => {
+                if (collectField !== "result") {
+                    collectField = collectField?.replace("result.", "") || "result";
+                    allData = allData.concat(requestItem.collectProcessData(resultChunk, collectField));
+                }
+                else {
+                    allData = allData.concat(resultChunk);
+                }
+            });
+        }
+        this.data = allData;
+        return this;
+    }
+    async buildBatch(parameters = null, endpoint, start = 0, total = 1, limit = 50) {
+        this.setDefaultParams();
+        endpoint = endpoint || this.prefixDefault + ".list";
+        parameters = this.instance.getDefaultParams(parameters);
+        const urlParameters = UrlHelper.jsonToUrl(parameters);
+        let batchs = {};
+        if (total == "all") {
+            const requestTotal = await this.requestData(endpoint, {});
+            total = requestTotal?.total || 0;
+            total = total ? total / limit : 1;
+            console.log(`Total: ${total}`);
+        }
+        for (let i = 0; i <= total; i++) {
+            start = limit * i;
+            batchs[i] = `${endpoint}?start=${start}&${urlParameters || ""}`;
+        }
+        return await this.requestData("batch", {
+            halt: 0,
+            cmd: batchs,
+        });
     }
 }

@@ -81,6 +81,7 @@ export declare class BitrixBuilder {
      * @internal
      */
     update(params?: any | null, method?: string | null): Promise<any>;
+    collectProcessData(data: any, collectField?: string | null): any;
     /**
      * Coleta dados da API e mapeia para instâncias da classe.
      * @internal
@@ -91,4 +92,6 @@ export declare class BitrixBuilder {
      * @internal
      */
     delete(id: number | string | null): Promise<import("@bitrix24/b24jssdk/.").Result<any>>;
+    collectAll(parameters?: any, endpoint?: string | null, collectField?: string | null): Promise<any | this>;
+    buildBatch(parameters: any | undefined, endpoint: string | null, start?: number, total?: any, limit?: number): Promise<any>;
 }

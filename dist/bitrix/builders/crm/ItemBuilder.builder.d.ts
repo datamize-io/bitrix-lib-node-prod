@@ -9,4 +9,5 @@ export declare abstract class ItemBuilder extends BitrixBuilder {
     setId(id: string | number): this;
     getData(): any;
     collect<T = any>(params?: any, method?: string | null, collectField?: string): Promise<T>;
+    collectAll<T = any>(params?: any, method?: string | null, collectField?: string): Promise<T>;
 }
