@@ -167,7 +167,7 @@ export class Item extends ItemBuilder {
         const CustomFieldsCollect = await new CustomField(this.instance).collect({ entityTypeId: itemData.entityTypeId });
         const CustomFields = CustomFieldsCollect.getData()[0];
         const TranslatedFields = CustomFields.getData();
-        console.info("Transferindo campos do contato %s para o contato %s", oldOwnerId, newOwnerId);
+        console.info("Transferindo campos do item %s para o item %s", oldOwnerId, newOwnerId);
         const newOwner = await new Item(this.instance).setEntityTypeId(itemData.entityTypeId).get(newOwnerId);
         // Passando por cada contato
         const oldOwner = await new Item(this.instance).setEntityTypeId(itemData.entityTypeId).get(oldOwnerId);
@@ -177,7 +177,7 @@ export class Item extends ItemBuilder {
             .concat(systemKeys);
         console.info("Alterando os campos: " + fieldKeys.join(", "));
         const changedData = {};
-        const changedDataText = ["[b]Alteração do Contato " + oldOwnerId + " para o Contato " + newOwnerId + " [/b]"];
+        const changedDataText = ["[b]Alteração do item " + oldOwnerId + " para o item " + newOwnerId + " [/b]"];
         //Passando por cada campo
         fieldKeys.forEach(function (fieldKey) {
             let newFieldValue = oldOwner.getData()[fieldKey] || "";

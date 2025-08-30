@@ -1,4 +1,4 @@
-import { ActivityProvider } from "./ActivityProvider.js";
-export declare class ActivityForm extends ActivityProvider {
+import { Activity } from "./Activity.js";
+export declare class ActivityForm extends Activity {
     getParamsFromLastPage(): any;
 }
