@@ -202,17 +202,19 @@ export class Item extends ItemBuilder {
                 if (!oldFieldValue) {
                     oldFieldValue = "<vazio>";
                 }
-                if (translatedField.type == "enumeration") {
-                    const option = translatedField.items.find((optionObject) => optionObject.ID == newFieldValue);
-                    newFieldValueText = option.VALUE || newFieldValueText;
-                }
-                if (Array.isArray(oldFieldValue) && Array.isArray(newFieldValue) && systemKeys.includes(fieldKey)) {
-                    oldFieldValue = oldFieldValue.concat(newFieldValue);
-                    newFieldValueText = newFieldValue.map((deal) => deal.VALUE).join("\n- ");
-                    changedDataText.push("\n• [b]" + translatedField.title + "s acrescentados:[/b] \n- " + newFieldValueText);
-                }
-                else {
-                    changedDataText.push("• [b]" + translatedField.title + ":[/b] Alterado de " + oldFieldValue + " para " + newFieldValueText);
+                if (translatedField) {
+                    if (translatedField.type == "enumeration") {
+                        const option = translatedField.items.find((optionObject) => optionObject.ID == newFieldValue);
+                        newFieldValueText = option.VALUE || newFieldValueText;
+                    }
+                    if (Array.isArray(oldFieldValue) && Array.isArray(newFieldValue) && systemKeys.includes(fieldKey)) {
+                        oldFieldValue = oldFieldValue.concat(newFieldValue);
+                        newFieldValueText = newFieldValue.map((deal) => deal.VALUE).join("\n- ");
+                        changedDataText.push("\n• [b]" + translatedField.title + "s acrescentados:[/b] \n- " + newFieldValueText);
+                    }
+                    else {
+                        changedDataText.push("• [b]" + translatedField.title + ":[/b] Alterado de " + oldFieldValue + " para " + newFieldValueText);
+                    }
                 }
                 changedData[fieldKey] = newFieldValue;
             }
