@@ -7,8 +7,22 @@ const $b24 = new BitrixInstance({
     secret: process.env.BITRIX_WEBHOOK_SECRET,
 }).setLog(true);
 async function testActivity() {
-    const activity = await new ActivityForm($b24).get(351);
-    console.log(activity.getParamsFromLastPage());
+    const activity = await new ActivityForm($b24).get(357);
+    const params = activity.getParamsFromLastPage();
+    try {
+        const payload = activity.getData();
+        payload.OWNER_TYPE_ID = params.query.tid;
+        payload.OWNER_ID = params.query.eid;
+        payload.SUBJECT = "Formulário copiado";
+        console.log(params);
+        const move = await activity.insert({
+            fields: payload,
+        });
+        console.log(move);
+    }
+    catch (error) {
+        console.log(error);
+    }
 }
 async function testBatch() {
     const deals = await new Deal($b24).collectAll({
@@ -27,13 +41,13 @@ async function testSearchChat(findQuery = "1787700075521") {
     const chats = await new OpenLineChat($b24).searchChat(findQuery);
     console.log(chats.getData());
 }
-async function imbotRegister() {
+async function imbotRegisterTest() {
     const imbot = new ImBot($b24);
     await imbot.register({
         CLIENT_ID: "chatbot_supervisor",
         CODE: "chatbot_supervisor",
         TYPE: "S",
-        EVENT_HANDLER: `https://smartcaixa-bitrix.rj.r.appspot.com/webhooks/`,
+        EVENT_HANDLER: `https://certain-vast-werewolf.ngrok-free.app/webhooks/`,
         PROPERTIES: { NAME: "ChatBot - Supervisor", COLOR: "AQUA", EMAIL: "bot@exemplo.com" },
         OPENLINE: "Y",
     });
@@ -114,7 +128,8 @@ async function testGetEvent() {
     const event = await new CalendarEvent($b24).setType("user").getById(id);
     console.log(event.getData());
 }
-testActivity();
+//testActivity();
+imbotRegisterTest();
 //testBatch();
 //testSearchChat();
 //imbotUnregister(10041, "meu_chatbot_test2208_v2");
