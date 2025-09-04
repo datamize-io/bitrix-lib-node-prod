@@ -16,4 +16,9 @@ export class OpenLineOperator extends OpenLineOperatorBuilder {
             TRANSFER_ID: transferId,
         });
     }
+    async skip(chatId) {
+        return this.requestData("imopenlines.operator.skip", {
+            CHAT_ID: chatId,
+        });
+    }
 }

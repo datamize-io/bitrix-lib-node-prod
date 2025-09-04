@@ -4,4 +4,5 @@ export declare class OpenLineOperator extends OpenLineOperatorBuilder implements
     takesChat(chatId: string | number): Promise<boolean>;
     finishChat(chatId: string | number): Promise<boolean>;
     transfer(chatId: string | number, transferId: string | number): Promise<boolean>;
+    skip(chatId: string | number): Promise<boolean>;
 }
