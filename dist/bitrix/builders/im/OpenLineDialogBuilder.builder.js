@@ -44,7 +44,7 @@ export class OpenLineDialogBuilder extends BitrixBuilder {
         return data?.split("|")[5] || undefined;
     }
     getChatId() {
-        return Number(this.getData().dialog_id);
+        return Number(this.getData().id);
     }
     getLeadId() {
         const data = this.getData().entity_data_2;

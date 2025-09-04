@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { BitrixInstance, OpenLineChat, CalendarEvent, Contact, Item, CrmType, ImBot, Deal, ActivityForm } from "../bitrix/index.js";
+import { BitrixInstance, OpenLineChat, CalendarEvent, Contact, Item, CrmType, ImBot, Deal, ActivityForm, OpenLineDialog, } from "../bitrix/index.js";
 import { WebhookController } from "./WebhookController.js";
 const $b24 = new BitrixInstance({
     b24Url: process.env.BITRIX_WEBHOOK_URL,
@@ -128,8 +128,14 @@ async function testGetEvent() {
     const event = await new CalendarEvent($b24).setType("user").getById(id);
     console.log(event.getData());
 }
+async function getDialogChatId() {
+    const dialog = await new OpenLineDialog($b24).getByChatId(1056);
+    console.log(dialog);
+    console.log(dialog.getChatId());
+}
+getDialogChatId();
 //testActivity();
-imbotRegisterTest();
+//imbotRegisterTest();
 //testBatch();
 //testSearchChat();
 //imbotUnregister(10041, "meu_chatbot_test2208_v2");
