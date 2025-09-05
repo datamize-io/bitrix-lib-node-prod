@@ -19,6 +19,12 @@ export class ImBot extends ImBotBuilder {
             BOT_ID: botId,
         });
     }
+    async leave(botId, chatId) {
+        return this.requestAndPatch("imbot.chat.leave", {
+            CHAT_ID: chatId,
+            BOT_ID: botId,
+        });
+    }
     async sessionFinish(chatId) {
         return this.requestAndPatch("imopenlines.bot.session.finish", {
             CHAT_ID: chatId,

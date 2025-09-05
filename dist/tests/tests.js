@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { BitrixInstance, OpenLineChat, CalendarEvent, Contact, Item, CrmType, ImBot, Deal, ActivityForm, OpenLineDialog, } from "../bitrix/index.js";
+import { BitrixInstance, OpenLineChat, CalendarEvent, Contact, Item, CrmType, ImBot, Deal, ActivityForm, OpenLineDialog, OpenLine, } from "../bitrix/index.js";
 import { WebhookController } from "./WebhookController.js";
 const $b24 = new BitrixInstance({
     b24Url: process.env.BITRIX_WEBHOOK_URL,
@@ -44,11 +44,11 @@ async function testSearchChat(findQuery = "1787700075521") {
 async function imbotRegisterTest() {
     const imbot = new ImBot($b24);
     await imbot.register({
-        CLIENT_ID: "chatbot_supervisor",
-        CODE: "chatbot_supervisor",
+        CLIENT_ID: "tsr_chatbot_recepcionista",
+        CODE: "tsr_chatbot_recepcionista",
         TYPE: "S",
-        EVENT_HANDLER: `https://certain-vast-werewolf.ngrok-free.app/webhooks/`,
-        PROPERTIES: { NAME: "ChatBot - Supervisor", COLOR: "AQUA", EMAIL: "bot@exemplo.com" },
+        EVENT_HANDLER: `https://tsr-bitrix.rj.r.appspot.com/webhooks/`,
+        PROPERTIES: { NAME: "Bot Recepcionista", COLOR: "AQUA", EMAIL: "bot@exemplo.com" },
         OPENLINE: "Y",
     });
     console.log(await imbot.list());
@@ -133,7 +133,12 @@ async function getDialogChatId() {
     console.log(dialog);
     console.log(dialog.getChatId());
 }
-getDialogChatId();
+async function getOpenLine() {
+    const line = await new OpenLine($b24).get(4);
+    console.log(line);
+}
+//getOpenLine();
+//getDialogChatId();
 //testActivity();
 //imbotRegisterTest();
 //testBatch();
