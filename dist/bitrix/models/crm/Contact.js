@@ -7,8 +7,11 @@ export class Contact extends ContactBuilder {
     // Finish chats
     // Restart chats
     async getDeals() {
+        const id = this.getData().ID || this.getData().id;
+        if (!id)
+            throw Error("Não foi possível identificar o id do contato para poder filtrar os negócios do mesmo.");
         return await this.instance.entity(Deal).collect({
-            filter: { contactId: this.getData().ID },
+            filter: { contactId: id },
         });
     }
     async getByPhone(phone) {
