@@ -164,7 +164,7 @@ export class BitrixInstance {
                 try {
                     const dir = path.resolve(process.cwd(), "payloads");
                     await FileHelper.ensureDir(dir);
-                    const fileName = method;
+                    const fileName = `${method}.json`;
                     const filePath = path.join(dir, fileName);
                     const snapshot = {
                         savedAt: new Date().toISOString(),
