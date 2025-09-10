@@ -5,7 +5,9 @@ const $b24 = new BitrixInstance({
     b24Url: process.env.BITRIX_WEBHOOK_URL,
     userId: parseInt(process.env.BITRIX_WEBHOOK_USER_ID),
     secret: process.env.BITRIX_WEBHOOK_SECRET,
-}).setLog(true);
+})
+    .setLog(true)
+    .setSavePayloads(true);
 async function testActivity() {
     const activity = await new ActivityForm($b24).get(357);
     const params = activity.getParamsFromLastPage();
@@ -52,6 +54,10 @@ async function imbotRegisterTest() {
         OPENLINE: "Y",
     });
     console.log(await imbot.list());
+}
+async function getImBotList() {
+    const imbot = new ImBot($b24);
+    await imbot.list();
 }
 async function getOpenLineChats() {
     const chats = await new OpenLineChat($b24).collect();
@@ -137,6 +143,7 @@ async function getOpenLine() {
     const line = await new OpenLine($b24).get(4);
     console.log(line);
 }
+getImBotList();
 //getOpenLine();
 //getDialogChatId();
 //testActivity();

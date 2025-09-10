@@ -1,0 +1,53 @@
+{
+  "savedAt": "2025-09-10T17:06:41.598Z",
+  "method": "imbot.bot.list",
+  "isBatch": false,
+  "requestParams": {},
+  "responseData": {
+    "_errors": {},
+    "_data": {
+      "result": {
+        "2": {
+          "ID": 2,
+          "NAME": "CoPilot",
+          "CODE": "copilot",
+          "OPENLINE": "N"
+        },
+        "588": {
+          "ID": 588,
+          "NAME": "ChatApp - WABA Templates",
+          "CODE": "AnkCA_ChatAppBot",
+          "OPENLINE": "N"
+        },
+        "1318": {
+          "ID": 1318,
+          "NAME": "ChatBot - Supervisor",
+          "CODE": "chatbot_supervisor",
+          "OPENLINE": "Y"
+        },
+        "1326": {
+          "ID": 1326,
+          "NAME": "Bot Recepcionista",
+          "CODE": "tsr_chatbot_recepcionista",
+          "OPENLINE": "Y"
+        }
+      },
+      "time": {
+        "start": 1757524001.999644,
+        "finish": 1757524002.020329,
+        "duration": 0.02068495750427246,
+        "processing": 0.0010828971862792969,
+        "date_start": "2025-09-10T20:06:41+03:00",
+        "date_finish": "2025-09-10T20:06:42+03:00",
+        "operating_reset_at": 1757524602,
+        "operating": 0
+      }
+    },
+    "_status": 200,
+    "_query": {
+      "method": "imbot.bot.list",
+      "params": {},
+      "start": 0
+    }
+  }
+}

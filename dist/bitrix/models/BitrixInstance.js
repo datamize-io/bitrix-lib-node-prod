@@ -1,4 +1,6 @@
 import { B24Hook } from "@bitrix24/b24jssdk";
+import { FileHelper } from "../../helpers/file.helper.js";
+import path from "path";
 /**
  * Classe responsável por gerenciar a instância de conexão com a API Bitrix24.
  * Permite configurar autenticação, parâmetros padrão, renovação de token OAuth e realizar requisições à API.
@@ -11,6 +13,7 @@ export class BitrixInstance {
     constructor(secretObject) {
         this.paramsToInject = {};
         this.LOG = false;
+        this.savePayloads = false;
         this.client = secretObject instanceof B24Hook ? secretObject : new B24Hook(secretObject);
     }
     /**
@@ -41,6 +44,10 @@ export class BitrixInstance {
     }
     setLog(log = true) {
         this.LOG = log;
+        return this;
+    }
+    setSavePayloads(value) {
+        this.savePayloads = value;
         return this;
     }
     /**
@@ -150,6 +157,33 @@ export class BitrixInstance {
         if (this.LOG == true) {
             console.log(method, params);
         }
-        return isBatch ? this.client.callBatch({ [method]: { method, params } }) : this.client.callMethod(method, params);
+        const responsePromise = isBatch ? this.client.callBatch({ [method]: { method, params } }) : this.client.callMethod(method, params);
+        // Ao resolver a resposta, salva o payload se habilitado
+        if (this.savePayloads === true) {
+            responsePromise.then(async (response) => {
+                try {
+                    const dir = path.resolve(process.cwd(), "payloads");
+                    await FileHelper.ensureDir(dir);
+                    const fileName = method;
+                    const filePath = path.join(dir, fileName);
+                    const snapshot = {
+                        savedAt: new Date().toISOString(),
+                        method,
+                        isBatch,
+                        requestParams: params,
+                        // cuidado: se 'response' for um objeto complexo, serialize com JSON
+                        responseData: response,
+                    };
+                    await FileHelper.createFileIfNotExists(filePath, JSON.stringify(snapshot, null, 2));
+                }
+                catch (e) {
+                    // não quebra o fluxo da request caso falhe o salvamento
+                    if (this.LOG === true) {
+                        console.warn("Falha ao salvar payload:", e?.message);
+                    }
+                }
+            });
+        }
+        return responsePromise;
     }
 }

@@ -12,6 +12,7 @@ export declare class BitrixInstance {
     private clientId?;
     private clientSecret?;
     private LOG?;
+    private savePayloads?;
     /**
      * Cria uma nova instância do BitrixInstance.
      * @param secretObject Objeto de configuração do B24Hook ou uma instância já existente.
@@ -36,6 +37,7 @@ export declare class BitrixInstance {
      */
     setRefreshToken(refreshToken: string): this;
     setLog(log?: boolean): this;
+    setSavePayloads(value: boolean): this;
     /**
      * Define parâmetros padrão que serão injetados em todas as requisições.
      * @param paramsToInject Objeto com parâmetros padrão.
