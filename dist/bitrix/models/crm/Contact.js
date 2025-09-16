@@ -29,6 +29,20 @@ export class Contact extends ContactBuilder {
             return undefined;
         }
     }
+    async getByEmail(email) {
+        return await this.getByEmails([email]);
+    }
+    async getByEmails(emails) {
+        if (!emails || emails.length == 0)
+            throw Error("Parâmetro emails é obrigatórios.");
+        const ids = await new Duplicate(this.instance).findByType("CONTACT", "EMAIL", emails);
+        if (ids.length > 0) {
+            return await this.get(ids.shift());
+        }
+        else {
+            return undefined;
+        }
+    }
     async getDuplications() {
         const contactEmails = this.getData()
             .fm?.filter((d) => d.typeId == "EMAILS")

@@ -3,6 +3,8 @@ export declare class Contact extends ContactBuilder {
     getDeals(): Promise<any>;
     getByPhone(phone: string): Promise<any>;
     getByPhones(phones: string[]): Promise<any>;
+    getByEmail(email: string): Promise<any>;
+    getByEmails(emails: string[]): Promise<any>;
     getDuplications(): Promise<any>;
     getOpenedDeals(): Promise<any>;
 }
