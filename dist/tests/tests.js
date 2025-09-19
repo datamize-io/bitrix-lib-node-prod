@@ -8,6 +8,14 @@ const $b24 = new BitrixInstance({
 })
     .setLog(true)
     .setSavePayloads(true);
+async function testTryCatchErrorRequest() {
+    try {
+        const item = await new Item($b24).setEntityTypeId(3).get(9999999);
+    }
+    catch (error) {
+        console.log("Erro capturado: ", error.message);
+    }
+}
 async function testActivity() {
     const activity = await new ActivityForm($b24).get(357);
     const params = activity.getParamsFromLastPage();
@@ -143,7 +151,8 @@ async function getOpenLine() {
     const line = await new OpenLine($b24).get(4);
     console.log(line);
 }
-getImBotList();
+testTryCatchErrorRequest();
+//getImBotList();
 //getOpenLine();
 //getDialogChatId();
 //testActivity();
