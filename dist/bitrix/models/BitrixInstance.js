@@ -160,8 +160,7 @@ export class BitrixInstance {
         const responsePromise = isBatch ? this.client.callBatch({ [method]: { method, params } }) : this.client.callMethod(method, params);
         // Ao resolver a resposta, salva o payload se habilitado
         if (this.savePayloads === true) {
-            responsePromise
-                .then(async (response) => {
+            responsePromise.then(async (response) => {
                 try {
                     const dir = path.resolve(process.cwd(), "payloads");
                     await FileHelper.ensureDir(dir);
@@ -183,9 +182,6 @@ export class BitrixInstance {
                         console.warn("Falha ao salvar payload:", e?.message);
                     }
                 }
-            })
-                .catch((error) => {
-                throw Error(error);
             });
         }
         return responsePromise;
