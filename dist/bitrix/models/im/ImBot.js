@@ -72,4 +72,36 @@ export class ImBot extends ImBotBuilder {
             CLIENT_ID,
         });
     }
+    async setNote(clientId, chatId, message) {
+        return this.requestAndPatch("imbot.message.add", {
+            CLIENT_ID: clientId,
+            DIALOG_ID: chatId,
+            MESSAGE: message,
+            SYSTEM: "Y",
+            ATTACH: [
+                {
+                    USER: {
+                        NAME: "Mensagem do sistema",
+                        AVATAR: "http://files.shelenkov.com/bitrix/images/mantis2.jpg",
+                    },
+                },
+                {
+                    DELIMITER: {
+                        SIZE: 200,
+                        COLOR: "#c6c6c6",
+                    },
+                },
+                {
+                    GRID: [
+                        {
+                            NAME: "Mensagem",
+                            VALUE: message,
+                            DISPLAY: "LINE",
+                            WIDTH: 500,
+                        },
+                    ],
+                },
+            ],
+        });
+    }
 }

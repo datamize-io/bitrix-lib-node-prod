@@ -8,6 +8,11 @@ const $b24 = new BitrixInstance({
 })
     .setLog(true)
     .setSavePayloads(true);
+async function imbotSetnote(botId = "", clientId = "") {
+    const imbot = new ImBot($b24);
+    await imbot.setNote("bot_recepcionista_teste", "chat3068", "Teste do atendimento");
+    console.log(await imbot.list());
+}
 async function sendSilentMessage() {
     await new OpenLineMessage($b24).comment("contact", 11060, 1, "3068", "Teste");
 }
@@ -154,7 +159,7 @@ async function getOpenLine() {
     const line = await new OpenLine($b24).get(4);
     console.log(line);
 }
-sendSilentMessage();
+imbotSetnote();
 //testTryCatchErrorRequest();
 //getImBotList();
 //getOpenLine();

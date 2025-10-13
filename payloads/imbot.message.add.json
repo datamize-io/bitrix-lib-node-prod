@@ -1,0 +1,176 @@
+{
+  "savedAt": "2025-10-13T02:48:15.402Z",
+  "method": "imbot.message.add",
+  "isBatch": false,
+  "requestParams": {
+    "CLIENT_ID": "bot_recepcionista_teste",
+    "DIALOG_ID": "chat3068",
+    "MESSAGE": "Teste do atendimento",
+    "ATTACH": [
+      {
+        "USER": {
+          "NAME": "Mantis Notifications",
+          "AVATAR": "http://files.shelenkov.com/bitrix/images/mantis2.jpg",
+          "LINK": "http://shelenkov.com/"
+        }
+      },
+      {
+        "LINK": {
+          "NAME": "Open Mantis from external network",
+          "LINK": "http://shelenkov.com/"
+        }
+      },
+      {
+        "DELIMITER": {
+          "SIZE": 200,
+          "COLOR": "#c6c6c6"
+        }
+      },
+      {
+        "GRID": [
+          {
+            "NAME": "Project",
+            "VALUE": "BUGS",
+            "DISPLAY": "LINE",
+            "WIDTH": 100
+          },
+          {
+            "NAME": "Category",
+            "VALUE": "im",
+            "DISPLAY": "LINE",
+            "WIDTH": 100
+          },
+          {
+            "NAME": "Summary",
+            "VALUE": "It is necessary to implement the ability to add structured entities to messages and notifications in the messenger.",
+            "DISPLAY": "BLOCK"
+          }
+        ]
+      },
+      {
+        "DELIMITER": {
+          "SIZE": 200,
+          "COLOR": "#c6c6c6"
+        }
+      },
+      {
+        "GRID": [
+          {
+            "NAME": "New Request",
+            "VALUE": "",
+            "DISPLAY": "ROW",
+            "WIDTH": 100
+          },
+          {
+            "NAME": "Assigned To",
+            "VALUE": "Evgeny Shelenkov",
+            "DISPLAY": "ROW",
+            "WIDTH": 100
+          },
+          {
+            "NAME": "Deadline",
+            "VALUE": "11/04/2015 17:50:43",
+            "DISPLAY": "ROW",
+            "WIDTH": 100
+          }
+        ]
+      }
+    ]
+  },
+  "responseData": {
+    "_errors": {},
+    "_data": {
+      "result": 1199578,
+      "time": {
+        "start": 1760323695,
+        "finish": 1760323696.080063,
+        "duration": 1.0800631046295166,
+        "processing": 1,
+        "date_start": "2025-10-13T05:48:15+03:00",
+        "date_finish": "2025-10-13T05:48:16+03:00",
+        "operating_reset_at": 1760324295,
+        "operating": 0.26653599739074707
+      }
+    },
+    "_status": 200,
+    "_query": {
+      "method": "imbot.message.add",
+      "params": {
+        "CLIENT_ID": "bot_recepcionista_teste",
+        "DIALOG_ID": "chat3068",
+        "MESSAGE": "Teste do atendimento",
+        "ATTACH": [
+          {
+            "USER": {
+              "NAME": "Mantis Notifications",
+              "AVATAR": "http://files.shelenkov.com/bitrix/images/mantis2.jpg",
+              "LINK": "http://shelenkov.com/"
+            }
+          },
+          {
+            "LINK": {
+              "NAME": "Open Mantis from external network",
+              "LINK": "http://shelenkov.com/"
+            }
+          },
+          {
+            "DELIMITER": {
+              "SIZE": 200,
+              "COLOR": "#c6c6c6"
+            }
+          },
+          {
+            "GRID": [
+              {
+                "NAME": "Project",
+                "VALUE": "BUGS",
+                "DISPLAY": "LINE",
+                "WIDTH": 100
+              },
+              {
+                "NAME": "Category",
+                "VALUE": "im",
+                "DISPLAY": "LINE",
+                "WIDTH": 100
+              },
+              {
+                "NAME": "Summary",
+                "VALUE": "It is necessary to implement the ability to add structured entities to messages and notifications in the messenger.",
+                "DISPLAY": "BLOCK"
+              }
+            ]
+          },
+          {
+            "DELIMITER": {
+              "SIZE": 200,
+              "COLOR": "#c6c6c6"
+            }
+          },
+          {
+            "GRID": [
+              {
+                "NAME": "New Request",
+                "VALUE": "",
+                "DISPLAY": "ROW",
+                "WIDTH": 100
+              },
+              {
+                "NAME": "Assigned To",
+                "VALUE": "Evgeny Shelenkov",
+                "DISPLAY": "ROW",
+                "WIDTH": 100
+              },
+              {
+                "NAME": "Deadline",
+                "VALUE": "11/04/2015 17:50:43",
+                "DISPLAY": "ROW",
+                "WIDTH": 100
+              }
+            ]
+          }
+        ]
+      },
+      "start": 0
+    }
+  }
+}
