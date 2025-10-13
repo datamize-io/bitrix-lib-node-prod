@@ -81,8 +81,8 @@ export class ImBot extends ImBotBuilder {
             ATTACH: [
                 {
                     USER: {
-                        NAME: "Mensagem do sistema",
-                        AVATAR: "http://files.shelenkov.com/bitrix/images/mantis2.jpg",
+                        NAME: "Sistema",
+                        AVATAR: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Info_Simple.svg/768px-Info_Simple.svg.png",
                     },
                 },
                 {
