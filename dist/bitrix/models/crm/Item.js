@@ -103,7 +103,7 @@ export class Item extends ItemBuilder {
                     return entity.getData().entityTypeId;
                 });
             });
-            const systemEntities = [1, 2, 3, 4];
+            const systemEntities = [1, 2, 3];
             chooseEntities = systemEntities.concat(customEntities);
         }
         const itemData = this.getData();
