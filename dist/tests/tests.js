@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { BitrixInstance, OpenLineChat, CalendarEvent, Contact, Item, CrmType, ImBot, Deal, ActivityForm, OpenLineDialog, OpenLine, } from "../bitrix/index.js";
+import { BitrixInstance, OpenLineChat, CalendarEvent, Contact, Item, CrmType, ImBot, Deal, ActivityForm, OpenLineDialog, OpenLine, OpenLineMessage, } from "../bitrix/index.js";
 import { WebhookController } from "./WebhookController.js";
 const $b24 = new BitrixInstance({
     b24Url: process.env.BITRIX_WEBHOOK_URL,
@@ -8,6 +8,9 @@ const $b24 = new BitrixInstance({
 })
     .setLog(true)
     .setSavePayloads(true);
+async function sendSilentMessage() {
+    await new OpenLineMessage($b24).comment("contact", 11060, 1, "3068", "Teste");
+}
 async function testTryCatchErrorRequest() {
     try {
         const item = await new Item($b24).setEntityTypeId(3).get(9999999);
@@ -151,7 +154,8 @@ async function getOpenLine() {
     const line = await new OpenLine($b24).get(4);
     console.log(line);
 }
-testTryCatchErrorRequest();
+sendSilentMessage();
+//testTryCatchErrorRequest();
 //getImBotList();
 //getOpenLine();
 //getDialogChatId();

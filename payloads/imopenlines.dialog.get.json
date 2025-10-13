@@ -1,0 +1,110 @@
+{
+  "savedAt": "2025-10-13T00:28:41.446Z",
+  "method": "imopenlines.dialog.get",
+  "isBatch": false,
+  "requestParams": {
+    "CHAT_ID": 3068
+  },
+  "responseData": {
+    "_errors": {},
+    "_data": {
+      "result": {
+        "id": 3068,
+        "parent_chat_id": 0,
+        "parent_message_id": 0,
+        "name": "WA: Jhonatan Costa Westphal - WhatsApp (Grupos e Individuais)",
+        "description": null,
+        "owner": 1,
+        "extranet": false,
+        "avatar": "https://cdn.bitrix24.com.br/b32557811/resize_cache/193156/ff58db95aecdfa09ae61b51b5fd8f63f/main/106/1064b1db7e56d69a429b146eb5c9173a/fce0d7d7-cd99-4d29-8e68-835c17e69d03.jpg",
+        "color": "#64a513",
+        "type": "lines",
+        "counter": 0,
+        "user_counter": 3,
+        "message_count": 4995,
+        "unread_id": 0,
+        "restrictions": {
+          "avatar": true,
+          "rename": true,
+          "extend": true,
+          "call": true,
+          "mute": true,
+          "leave": true,
+          "leave_owner": true,
+          "send": true,
+          "user_list": true
+        },
+        "last_message_id": 1198570,
+        "last_id": 1198570,
+        "marked_id": 0,
+        "disk_folder_id": 13488,
+        "entity_type": "LINES",
+        "entity_id": "ank_chats_app24_whatsapp|10|554784646202|2332",
+        "entity_data_1": "Y|CONTACT|11060|N|N|43490|1760314499|10|0|0",
+        "entity_data_2": "LEAD|0|COMPANY|0|CONTACT|11060|DEAL|0",
+        "entity_data_3": "N",
+        "mute_list": [],
+        "date_create": "2025-03-19T21:48:15+03:00",
+        "message_type": "L",
+        "public": "",
+        "role": "owner",
+        "entity_link": {
+          "type": "LINES",
+          "url": ""
+        },
+        "text_field_enabled": true,
+        "background_id": null,
+        "permissions": {
+          "manage_users_add": "member",
+          "manage_users_delete": "manager",
+          "manage_ui": "member",
+          "manage_settings": "owner",
+          "manage_messages": "member",
+          "can_post": "member"
+        },
+        "is_new": false,
+        "readed_list": [
+          {
+            "user_id": 2332,
+            "user_name": "Jhonatan C. Westphal",
+            "message_id": 1178658,
+            "date": null
+          },
+          {
+            "user_id": 10332,
+            "user_name": "Bot Recepcionista Teste",
+            "message_id": 1198552,
+            "date": null
+          }
+        ],
+        "manager_list": [
+          1
+        ],
+        "last_message_views": {
+          "message_id": 1198570,
+          "first_viewers": [],
+          "count_of_viewers": 0
+        },
+        "dialog_id": "chat3068"
+      },
+      "time": {
+        "start": 1760315321,
+        "finish": 1760315321.976912,
+        "duration": 0.9769120216369629,
+        "processing": 0,
+        "date_start": "2025-10-13T03:28:41+03:00",
+        "date_finish": "2025-10-13T03:28:41+03:00",
+        "operating_reset_at": 1760315921,
+        "operating": 0
+      }
+    },
+    "_status": 200,
+    "_query": {
+      "method": "imopenlines.dialog.get",
+      "params": {
+        "CHAT_ID": 3068
+      },
+      "start": 0
+    }
+  }
+}

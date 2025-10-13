@@ -1,0 +1,40 @@
+{
+  "savedAt": "2025-10-13T00:35:17.468Z",
+  "method": "imopenlines.crm.message.add",
+  "isBatch": false,
+  "requestParams": {
+    "CRM_ENTITY_TYPE": "contact",
+    "CRM_ENTITY": 11060,
+    "USER_ID": 1,
+    "CHAT_ID": "3068",
+    "MESSAGE": "Teste"
+  },
+  "responseData": {
+    "_errors": {},
+    "_data": {
+      "result": 1198576,
+      "time": {
+        "start": 1760315717,
+        "finish": 1760315718.028568,
+        "duration": 1.0285680294036865,
+        "processing": 1,
+        "date_start": "2025-10-13T03:35:17+03:00",
+        "date_finish": "2025-10-13T03:35:18+03:00",
+        "operating_reset_at": 1760316317,
+        "operating": 0
+      }
+    },
+    "_status": 200,
+    "_query": {
+      "method": "imopenlines.crm.message.add",
+      "params": {
+        "CRM_ENTITY_TYPE": "contact",
+        "CRM_ENTITY": 11060,
+        "USER_ID": 1,
+        "CHAT_ID": "3068",
+        "MESSAGE": "Teste"
+      },
+      "start": 0
+    }
+  }
+}

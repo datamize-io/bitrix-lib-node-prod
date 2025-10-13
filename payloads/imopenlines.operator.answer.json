@@ -1,0 +1,32 @@
+{
+  "savedAt": "2025-10-13T00:28:15.055Z",
+  "method": "imopenlines.operator.answer",
+  "isBatch": false,
+  "requestParams": {
+    "CHAT_ID": "3068"
+  },
+  "responseData": {
+    "_errors": {},
+    "_data": {
+      "result": true,
+      "time": {
+        "start": 1760315295,
+        "finish": 1760315295.598512,
+        "duration": 0.5985119342803955,
+        "processing": 0,
+        "date_start": "2025-10-13T03:28:15+03:00",
+        "date_finish": "2025-10-13T03:28:15+03:00",
+        "operating_reset_at": 1760315895,
+        "operating": 0.4403369426727295
+      }
+    },
+    "_status": 200,
+    "_query": {
+      "method": "imopenlines.operator.answer",
+      "params": {
+        "CHAT_ID": "3068"
+      },
+      "start": 0
+    }
+  }
+}
