@@ -72,17 +72,49 @@ export class ImBot extends ImBotBuilder {
             CLIENT_ID,
         });
     }
-    async setNote(clientId, chatId, message) {
+    async setInfo(clientId, chatId, message) {
         return this.requestAndPatch("imbot.message.add", {
             CLIENT_ID: clientId,
             DIALOG_ID: chatId,
-            MESSAGE: message,
+            MESSAGE: `Nova informação:`,
             SYSTEM: "Y",
             ATTACH: [
                 {
                     USER: {
-                        NAME: "Sistema",
+                        NAME: "Sistema - Informação",
                         AVATAR: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Info_Simple.svg/768px-Info_Simple.svg.png",
+                    },
+                },
+                {
+                    DELIMITER: {
+                        SIZE: 200,
+                        COLOR: "#c6c6c6",
+                    },
+                },
+                {
+                    GRID: [
+                        {
+                            NAME: "Mensagem",
+                            VALUE: message,
+                            DISPLAY: "LINE",
+                            WIDTH: 500,
+                        },
+                    ],
+                },
+            ],
+        });
+    }
+    async setAlert(clientId, chatId, message) {
+        return this.requestAndPatch("imbot.message.add", {
+            CLIENT_ID: clientId,
+            DIALOG_ID: chatId,
+            MESSAGE: `Novo alerta:`,
+            SYSTEM: "Y",
+            ATTACH: [
+                {
+                    USER: {
+                        NAME: "Sistema - Alerta",
+                        AVATAR: "https://uxwing.com/wp-content/themes/uxwing/download/signs-and-symbols/alert-icon.png",
                     },
                 },
                 {

@@ -10,7 +10,7 @@ const $b24 = new BitrixInstance({
     .setSavePayloads(true);
 async function imbotSetnote(botId = "", clientId = "") {
     const imbot = new ImBot($b24);
-    await imbot.setNote("bot_recepcionista_teste", "chat3068", "Teste do atendimento");
+    await imbot.setInfo("bot_recepcionista_teste", "chat3068", "Teste do atendimento");
     console.log(await imbot.list());
 }
 async function sendSilentMessage() {

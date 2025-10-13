@@ -33,6 +33,7 @@ export declare class ImBot extends ImBotBuilder {
     commandAnswer(payloadData: object): Promise<any>;
     commandUnregister(payloadData: object): Promise<any>;
     commandUpdate(COMMAND_ID: number, CLIENT_ID: string): Promise<any>;
-    setNote(clientId: string, chatId: string, message: string): Promise<any>;
+    setInfo(clientId: string, chatId: string, message: string): Promise<any>;
+    setAlert(clientId: string, chatId: string, message: string): Promise<any>;
 }
 export {};
