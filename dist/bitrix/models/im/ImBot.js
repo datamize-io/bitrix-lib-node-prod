@@ -1,5 +1,60 @@
 import { ImBotBuilder } from "../../builders/im/ImBotBuilder.builder.js";
 import { OpenLineDialog } from "./OpenLineDialog.js";
+export class CustomMessageBuilder {
+    constructor(customMessage) {
+        this.attachmentBlocks = [];
+        this.message = customMessage;
+        return this;
+    }
+    startBlocks() {
+        this.message.ATTACH = this.message.ATTACH || {};
+        this.message.ATTACH.BLOCKS = this.message.ATTACH.BLOCKS || [];
+        return this;
+    }
+    setGrid(gridObject) {
+        this.startBlocks();
+        this.message.ATTACH.BLOCKS.push({
+            GRID: [gridObject],
+        });
+        return this;
+    }
+    setUser(userObject) {
+        this.startBlocks();
+        this.message.ATTACH.BLOCKS.push({
+            USER: userObject,
+        });
+        return this;
+    }
+    setDelimitter(delimitterObject = null) {
+        this.startBlocks();
+        this.message.ATTACH.BLOCKS.push({
+            DELIMITER: delimitterObject || {
+                SIZE: 200,
+                COLOR: "#c6c6c6",
+            },
+        });
+        return this;
+    }
+    setInfoUser() {
+        this.setUser({
+            NAME: "Sistema - Informação",
+            AVATAR: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Info_Simple.svg/768px-Info_Simple.svg.png",
+        });
+        this.setDelimitter({ SIZE: 200, COLOR: "#333333" });
+        return this;
+    }
+    setAlertUser() {
+        this.setUser({
+            NAME: "Sistema - Alerta",
+            AVATAR: "https://uxwing.com/wp-content/themes/uxwing/download/signs-and-symbols/alert-icon.png",
+        });
+        this.setDelimitter({ SIZE: 200, COLOR: "#ff0000" });
+        return this;
+    }
+    build() {
+        return this.message;
+    }
+}
 export class ImBot extends ImBotBuilder {
     getDialogByChatEntityId(userCode) {
         return new OpenLineDialog(this.instance).getByUserCode(userCode);
@@ -48,6 +103,13 @@ export class ImBot extends ImBotBuilder {
             CHAT_ID: chatId,
             MESSAGE: message,
             NAME: name,
+        });
+    }
+    async updateTitle(chatId, botId, title) {
+        return this.requestAndPatch("imbot.chat.updateTitle", {
+            CHAT_ID: chatId,
+            BOT_ID: botId,
+            TITLE: title,
         });
     }
     async list() {
@@ -135,5 +197,8 @@ export class ImBot extends ImBotBuilder {
                 },
             ],
         });
+    }
+    async setCustomMessage(customMessage) {
+        return this.requestAndPatch("imbot.message.add", customMessage);
     }
 }

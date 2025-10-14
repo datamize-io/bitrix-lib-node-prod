@@ -1,0 +1,50 @@
+{
+  "savedAt": "2025-10-14T18:27:34.273Z",
+  "method": "imbot.register",
+  "isBatch": false,
+  "requestParams": {
+    "CLIENT_ID": "bot_teste",
+    "CODE": "bot_teste",
+    "TYPE": "S",
+    "EVENT_HANDLER": "https://certain-vast-werewolf.ngrok-free.app",
+    "PROPERTIES": {
+      "NAME": "Bot de Teste",
+      "COLOR": "AQUA",
+      "EMAIL": "bot@exemplo.com"
+    },
+    "OPENLINE": "Y"
+  },
+  "responseData": {
+    "_errors": {},
+    "_data": {
+      "result": 11786,
+      "time": {
+        "start": 1760466456,
+        "finish": 1760466456.740099,
+        "duration": 0.7400989532470703,
+        "processing": 0,
+        "date_start": "2025-10-14T21:27:36+03:00",
+        "date_finish": "2025-10-14T21:27:36+03:00",
+        "operating_reset_at": 1760467056,
+        "operating": 0.11636900901794434
+      }
+    },
+    "_status": 200,
+    "_query": {
+      "method": "imbot.register",
+      "params": {
+        "CLIENT_ID": "bot_teste",
+        "CODE": "bot_teste",
+        "TYPE": "S",
+        "EVENT_HANDLER": "https://certain-vast-werewolf.ngrok-free.app",
+        "PROPERTIES": {
+          "NAME": "Bot de Teste",
+          "COLOR": "AQUA",
+          "EMAIL": "bot@exemplo.com"
+        },
+        "OPENLINE": "Y"
+      },
+      "start": 0
+    }
+  }
+}

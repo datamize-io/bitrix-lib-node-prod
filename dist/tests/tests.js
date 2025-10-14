@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { BitrixInstance, OpenLineChat, CalendarEvent, Contact, Item, CrmType, ImBot, Deal, ActivityForm, OpenLineDialog, OpenLine, OpenLineMessage, } from "../bitrix/index.js";
+import { BitrixInstance, OpenLineChat, CalendarEvent, Contact, Item, CrmType, ImBot, Deal, ActivityForm, OpenLineDialog, OpenLine, OpenLineMessage, CustomMessageBuilder, } from "../bitrix/index.js";
 import { WebhookController } from "./WebhookController.js";
 const $b24 = new BitrixInstance({
     b24Url: process.env.BITRIX_WEBHOOK_URL,
@@ -8,9 +8,25 @@ const $b24 = new BitrixInstance({
 })
     .setLog(true)
     .setSavePayloads(true);
+async function imbotCustomMessage(botId = "", clientId = "") {
+    const imbot = new ImBot($b24);
+    const customMessage = new CustomMessageBuilder({
+        CLIENT_ID: "bot_teste",
+        DIALOG_ID: "chat32015",
+        MESSAGE: "Sistema",
+        SYSTEM: "Y",
+    });
+    customMessage.setAlertUser();
+    customMessage.setGrid({ NAME: "E-mail", VALUE: "westphal.jhonatan@gmail.com", DISPLAY: "BLOCK", WIDTH: 100 });
+    customMessage.setGrid({ NAME: "Telefone", VALUE: "+5547984646202", WIDTH: 100 });
+    customMessage.setGrid({ NAME: "Código do Imóvel", VALUE: "123456", WIDTH: 100 });
+    customMessage.setGrid({ NAME: "Link do Pipedrive", VALUE: "[URL=https://google.com] Clique para abrir [/URL]", DISPLAY: "LINE" });
+    await imbot.setCustomMessage(customMessage.build());
+}
 async function imbotSetnote(botId = "", clientId = "") {
     const imbot = new ImBot($b24);
-    await imbot.setInfo("bot_recepcionista_teste", "chat3068", "Teste do atendimento");
+    await imbot.setInfo("bot_recepcionista_teste", "chat3068", "Teste de info");
+    await imbot.setAlert("bot_recepcionista_teste", "chat3068", "Teste de alert");
     console.log(await imbot.list());
 }
 async function sendSilentMessage() {
@@ -59,14 +75,14 @@ async function testSearchChat(findQuery = "1787700075521") {
     const chats = await new OpenLineChat($b24).searchChat(findQuery);
     console.log(chats.getData());
 }
-async function imbotRegisterTest() {
+async function imbotRegisterTest(botCode = "bot_teste", botName = "Bot de Teste", botUrl = "https://certain-vast-werewolf.ngrok-free.app/webhooks/") {
     const imbot = new ImBot($b24);
     await imbot.register({
-        CLIENT_ID: "tsr_chatbot_recepcionista",
-        CODE: "tsr_chatbot_recepcionista",
+        CLIENT_ID: botCode,
+        CODE: botCode,
         TYPE: "S",
-        EVENT_HANDLER: `https://tsr-bitrix.rj.r.appspot.com/webhooks/`,
-        PROPERTIES: { NAME: "Bot Recepcionista", COLOR: "AQUA", EMAIL: "bot@exemplo.com" },
+        EVENT_HANDLER: `${botUrl}`,
+        PROPERTIES: { NAME: botName, COLOR: "AQUA", EMAIL: "bot@exemplo.com" },
         OPENLINE: "Y",
     });
     console.log(await imbot.list());
@@ -159,7 +175,8 @@ async function getOpenLine() {
     const line = await new OpenLine($b24).get(4);
     console.log(line);
 }
-imbotSetnote();
+imbotCustomMessage();
+//imbotSetnote();
 //testTryCatchErrorRequest();
 //getImBotList();
 //getOpenLine();

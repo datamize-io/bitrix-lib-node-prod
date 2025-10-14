@@ -1,22 +1,25 @@
 import { ImBotBuilder } from "../../builders/im/ImBotBuilder.builder.js";
 import { ImbotRegisterPayload } from "../../interfaces/im/ImBotInterface.interface.js";
-type CommandRegister = {
-    BOT_ID: number;
-    COMMAND: string;
-    COMMON?: "Y" | "N";
-    HIDDEN?: "Y" | "N";
-    EXTRANET_SUPPORT?: "Y" | "N";
-    CLIENT_ID?: string;
-    LANG: Array<Record<string, any>>;
-    EVENT_COMMAND_ADD: string;
-};
-type BotId = {
+import { CommandRegister, CustomMessage, CustomMessageAttachmentGrid, CustomMessageAttachmentUser, CustomMessageAttachmentDelimiter } from "../../types.js";
+export type BotId = {
     BOT_ID: number;
     CLIENT_ID?: string;
 };
-type ImbotUpdatePayload = BotId & {
+export type ImbotUpdatePayload = BotId & {
     fields: ImbotRegisterPayload;
 };
+export declare class CustomMessageBuilder {
+    private attachmentBlocks;
+    private message;
+    constructor(customMessage: CustomMessage);
+    startBlocks(): this;
+    setGrid(gridObject: CustomMessageAttachmentGrid): this;
+    setUser(userObject: CustomMessageAttachmentUser): this;
+    setDelimitter(delimitterObject?: CustomMessageAttachmentDelimiter | null): this;
+    setInfoUser(): this;
+    setAlertUser(): this;
+    build(): CustomMessage;
+}
 export declare class ImBot extends ImBotBuilder {
     getDialogByChatEntityId(userCode: string): Promise<any>;
     insert(registerPayload: ImbotRegisterPayload): Promise<any>;
@@ -28,6 +31,7 @@ export declare class ImBot extends ImBotBuilder {
     skipToFreeOperator(chatId: number): Promise<any>;
     sessionTransfer(chatId: number, userId: number, leave: "Y" | "N"): Promise<any>;
     sendMessage(chatId: number, message: string, name?: "WELCOME" | "DEFAULT"): Promise<any>;
+    updateTitle(chatId: string | number, botId: string | number, title: string): Promise<any>;
     list(): Promise<any>;
     commandRegister(payloadData: CommandRegister): Promise<any>;
     commandAnswer(payloadData: object): Promise<any>;
@@ -35,5 +39,5 @@ export declare class ImBot extends ImBotBuilder {
     commandUpdate(COMMAND_ID: number, CLIENT_ID: string): Promise<any>;
     setInfo(clientId: string, chatId: string, message: string): Promise<any>;
     setAlert(clientId: string, chatId: string, message: string): Promise<any>;
+    setCustomMessage(customMessage: CustomMessage): Promise<any>;
 }
-export {};
