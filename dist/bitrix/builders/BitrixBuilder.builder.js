@@ -117,10 +117,8 @@ export class BitrixBuilder {
                 return resultField ? result.getData()[resultField] : result.getData();
             }
             else {
-                // Aqui usamos a interface IResult do SDK
                 if (this.crashError) {
-                    const errorMessages = result.getErrorMessages(); // array de strings
-                    throw new Error(errorMessages.join("; ") || "Erro desconhecido do Bitrix");
+                    throw result;
                 }
                 else {
                     return result;
@@ -144,10 +142,7 @@ export class BitrixBuilder {
                 return this.patch(result.getData(), resultField);
             }
             else {
-                // Aqui usamos a interface IResult do SDK
                 if (this.crashError) {
-                    //const errorMessages = result.getErrorMessages(); // array de strings
-                    console.log(this.crashError);
                     throw result;
                 }
                 else {
