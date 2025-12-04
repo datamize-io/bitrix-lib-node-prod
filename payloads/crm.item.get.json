@@ -1,0 +1,32 @@
+{
+  "savedAt": "2025-12-04T18:40:18.394Z",
+  "method": "crm.item.get",
+  "isBatch": false,
+  "requestParams": {
+    "id": 12310231203912,
+    "entityTypeId": 2,
+    "useOriginalUfNames": "Y",
+    "select": [
+      "*"
+    ]
+  },
+  "responseData": {
+    "name": "AjaxError",
+    "code": "NOT_FOUND",
+    "message": "NOT_FOUND - O item não foi encontrado.",
+    "status": 400,
+    "timestamp": "2025-12-04T18:40:18.379Z",
+    "requestInfo": {
+      "method": "crm.item.get",
+      "params": {
+        "id": 12310231203912,
+        "entityTypeId": 2,
+        "useOriginalUfNames": "Y",
+        "select": [
+          "*"
+        ]
+      }
+    },
+    "stack": "AjaxError: NOT_FOUND - O item não foi encontrado.\n    at file:///C:/Users/DELL/node_modules/@bitrix24/b24jssdk/dist/esm/index.mjs:2004:30\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+  }
+}

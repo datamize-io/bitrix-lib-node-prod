@@ -25,12 +25,18 @@ export class BitrixBuilder {
         this.filterFields = {};
         this.defaultParams = {};
         this.changedData = {};
+        this.crashError = true;
         this.instance = bitrixInstance;
         return this;
     }
     /** @internal */
     setSelectItems(selectByFields) {
         this.selectFields = selectByFields;
+        return this;
+    }
+    /** @internal */
+    setCrashError(crashError) {
+        this.crashError = crashError;
         return this;
     }
     /** @internal */
@@ -112,8 +118,13 @@ export class BitrixBuilder {
             }
             else {
                 // Aqui usamos a interface IResult do SDK
-                const errorMessages = result.getErrorMessages(); // array de strings
-                throw new Error(errorMessages.join("; ") || "Erro desconhecido do Bitrix");
+                if (this.crashError) {
+                    const errorMessages = result.getErrorMessages(); // array de strings
+                    throw new Error(errorMessages.join("; ") || "Erro desconhecido do Bitrix");
+                }
+                else {
+                    return result;
+                }
             }
         }
         catch (error) {
@@ -134,8 +145,14 @@ export class BitrixBuilder {
             }
             else {
                 // Aqui usamos a interface IResult do SDK
-                const errorMessages = result.getErrorMessages(); // array de strings
-                throw new Error(errorMessages.join("; ") || "Erro desconhecido do Bitrix");
+                if (this.crashError) {
+                    //const errorMessages = result.getErrorMessages(); // array de strings
+                    console.log(this.crashError);
+                    throw result;
+                }
+                else {
+                    return result;
+                }
             }
         }
         catch (error) {

@@ -12,6 +12,7 @@ export declare class BitrixBuilder {
     protected filterFields: any;
     protected defaultParams: any;
     protected changedData: any;
+    protected crashError: boolean;
     /**
      * Define a instância global do Bitrix e retorna uma nova instância do builder.
      * @param bitrixInstance Instância do Bitrix
@@ -26,6 +27,8 @@ export declare class BitrixBuilder {
     constructor(bitrixInstance: BitrixInstance);
     /** @internal */
     setSelectItems(selectByFields: string[]): this;
+    /** @internal */
+    setCrashError(crashError: boolean): this;
     /** @internal */
     setSelectItem(selectByField: string): this;
     /** @internal */
@@ -55,12 +58,12 @@ export declare class BitrixBuilder {
      * Realiza uma requisição genérica e aplica o patch nos dados.
      * @internal
      */
-    requestData<T = any>(method: string, params?: any, resultField?: string): Promise<T>;
+    requestData<T = any>(method: string, params?: any, resultField?: string): Promise<any>;
     /**
      * Realiza uma requisição genérica e aplica o patch nos dados.
      * @internal
      */
-    requestAndPatch<T = any>(method: string, params?: any, resultField?: string): Promise<T>;
+    requestAndPatch<T = any>(method: string, params?: any, resultField?: string): Promise<any>;
     /**
      * Atualiza os dados internos da instância com o resultado da requisição.
      * @internal

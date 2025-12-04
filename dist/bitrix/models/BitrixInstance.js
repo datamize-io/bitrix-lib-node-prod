@@ -157,7 +157,9 @@ export class BitrixInstance {
         if (this.LOG == true) {
             console.log(method, params);
         }
-        const responsePromise = isBatch ? this.client.callBatch({ [method]: { method, params } }) : this.client.callMethod(method, params);
+        const responsePromise = isBatch
+            ? this.client.callBatch({ [method]: { method, params } }).catch((error) => error)
+            : this.client.callMethod(method, params).catch((error) => error);
         // Ao resolver a resposta, salva o payload se habilitado
         if (this.savePayloads === true) {
             responsePromise.then(async (response) => {

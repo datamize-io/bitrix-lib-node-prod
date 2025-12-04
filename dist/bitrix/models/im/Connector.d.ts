@@ -42,6 +42,9 @@ export declare class Connector extends ConnectorBuilder {
      * @returns Resultado da requisição PATCH
      */
     setConnectorDataset(datasetBuilder: ConnectorDataSet): Promise<any>;
+    updateReadStatus({ ...config }: {
+        [x: string]: any;
+    }): Promise<any>;
     /**
      * Consulta o status atual do conector.
      *

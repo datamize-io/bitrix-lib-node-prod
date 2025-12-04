@@ -1,0 +1,38 @@
+{
+  "savedAt": "2025-10-16T00:06:47.974Z",
+  "method": "imbot.chat.updateTitle",
+  "isBatch": false,
+  "requestParams": {
+    "CHAT_ID": 32101,
+    "CLIENT_ID": "triagem_responsaveis",
+    "BOT_ID": 18803,
+    "TITLE": "SC, JOINVILLE, 8787709522847, MARCIA LUIZA COSTA"
+  },
+  "responseData": {
+    "_errors": {},
+    "_data": {
+      "result": true,
+      "time": {
+        "start": 1760573209,
+        "finish": 1760573209.226944,
+        "duration": 0.2269439697265625,
+        "processing": 0,
+        "date_start": "2025-10-16T03:06:49+03:00",
+        "date_finish": "2025-10-16T03:06:49+03:00",
+        "operating_reset_at": 1760573809,
+        "operating": 0
+      }
+    },
+    "_status": 200,
+    "_query": {
+      "method": "imbot.chat.updateTitle",
+      "params": {
+        "CHAT_ID": 32101,
+        "CLIENT_ID": "triagem_responsaveis",
+        "BOT_ID": 18803,
+        "TITLE": "SC, JOINVILLE, 8787709522847, MARCIA LUIZA COSTA"
+      },
+      "start": 0
+    }
+  }
+}

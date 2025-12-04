@@ -9,7 +9,6 @@ const $b24 = new BitrixInstance({
     .setLog(true)
     .setSavePayloads(true);
 async function imbotCustomMessage(botId = "", clientId = "") {
-    const imbot = new ImBot($b24);
     const customMessage = new CustomMessageBuilder({
         CLIENT_ID: "bot_teste",
         DIALOG_ID: "chat32015",
@@ -21,7 +20,7 @@ async function imbotCustomMessage(botId = "", clientId = "") {
     customMessage.setGrid({ NAME: "Telefone", VALUE: "+5547984646202", WIDTH: 100 });
     customMessage.setGrid({ NAME: "Código do Imóvel", VALUE: "123456", WIDTH: 100 });
     customMessage.setGrid({ NAME: "Link do Pipedrive", VALUE: "[URL=https://google.com] Clique para abrir [/URL]", DISPLAY: "LINE" });
-    await imbot.setCustomMessage(customMessage.build());
+    await new ImBot($b24).setCustomMessage(customMessage.build());
 }
 async function imbotSetnote(botId = "", clientId = "") {
     const imbot = new ImBot($b24);
@@ -175,14 +174,51 @@ async function getOpenLine() {
     const line = await new OpenLine($b24).get(4);
     console.log(line);
 }
-imbotCustomMessage();
+async function updateTitleOfChat() {
+    const chat = await new ImBot($b24).requestData("imbot.chat.updateTitle", {
+        CHAT_ID: 32101,
+        CLIENT_ID: "triagem_responsaveis",
+        BOT_ID: 18803,
+        TITLE: "SC, JOINVILLE, 8787709522847, MARCIA LUIZA COSTA",
+    });
+    console.log(chat);
+}
+async function getByChatId(chatId = 4886) {
+    const chat = await new OpenLineDialog($b24).getByChatId(chatId);
+    console.log(chat.getData());
+}
+async function updateReadStatusMessage() {
+    /*const chat = await new OpenLineDialog($b24).getByChatId(chatId);
+    const dialogIm = chat.getData().entity_id;
+    const connectorId = dialogIm.split("|")[0];
+    const lineId = dialogIm.split("|")[1];
+  
+    const connectorService = await new Connector($b24);
+  
+    //console.log(request.getData());*/
+}
+async function sendFormMessageIntoDialog() {
+    const chat = await new OpenLineDialog($b24).requestData("imopenlines.dialog.form.send.json", {
+        SESSION_ID: 7022,
+    }, "POST");
+}
+async function getDeal() {
+    const deal = await new Deal($b24).get(1000).catch((error) => console.log("error"));
+    console.log(deal);
+}
+getDeal();
+//getByChatId();
+//sendFormMessageIntoDialog();
+//updateReadStatusMessage();
+//updateTitleOfChat();
+//imbotCustomMessage();
 //imbotSetnote();
 //testTryCatchErrorRequest();
 //getImBotList();
 //getOpenLine();
 //getDialogChatId();
 //testActivity();
-//imbotRegisterTest();
+//imbotRegisterTest("triagem_responsaveis", "Triagem de Responsáveis", "https://smartcaixa-bitrix.rj.r.appspot.com/webhooks/");
 //testBatch();
 //testSearchChat();
 //imbotUnregister(10041, "meu_chatbot_test2208_v2");

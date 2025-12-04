@@ -56,6 +56,14 @@ export class Connector extends ConnectorBuilder {
     async setConnectorDataset(datasetBuilder) {
         return await this.requestAndPatch("imconnector.connector.data.set", datasetBuilder);
     }
+    async updateReadStatus({ ...config }) {
+        const { connectorId, lineId, messages } = config;
+        return await this.requestAndPatch("imconnector.connector.data.set", {
+            CONNECTOR: connectorId, // ex: 'whatsapp', 'facebook', etc.
+            LINE: lineId, // ex: 'livechat_1' ou ID da Open Line
+            MESSAGES: messages,
+        });
+    }
     /**
      * Consulta o status atual do conector.
      *
