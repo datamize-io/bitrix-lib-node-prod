@@ -74,7 +74,7 @@ export class OpenLineChat extends OpenLineChatBuilder {
     }
     async addChatUser(chatId, userId) {
         return await this.requestData("im.chat.user.add", {
-            USER_ID: [userId],
+            USERS: [userId],
             CHAT_ID: chatId,
         }, "result");
     }
