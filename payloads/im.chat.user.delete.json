@@ -1,0 +1,34 @@
+{
+  "savedAt": "2025-12-23T15:53:40.744Z",
+  "method": "im.chat.user.delete",
+  "isBatch": false,
+  "requestParams": {
+    "USER_ID": 18803,
+    "CHAT_ID": 36869
+  },
+  "responseData": {
+    "_errors": {},
+    "_data": {
+      "result": true,
+      "time": {
+        "start": 1766505220,
+        "finish": 1766505220.166801,
+        "duration": 0.16680097579956055,
+        "processing": 0,
+        "date_start": "2025-12-23T18:53:40+03:00",
+        "date_finish": "2025-12-23T18:53:40+03:00",
+        "operating_reset_at": 1766505820,
+        "operating": 0
+      }
+    },
+    "_status": 200,
+    "_query": {
+      "method": "im.chat.user.delete",
+      "params": {
+        "USER_ID": 18803,
+        "CHAT_ID": 36869
+      },
+      "start": 0
+    }
+  }
+}

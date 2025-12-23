@@ -1,0 +1,38 @@
+{
+  "savedAt": "2025-12-23T15:59:11.220Z",
+  "method": "im.chat.user.add",
+  "isBatch": false,
+  "requestParams": {
+    "USER_ID": [
+      18803
+    ],
+    "CHAT_ID": 36869
+  },
+  "responseData": {
+    "_errors": {},
+    "_data": {
+      "result": true,
+      "time": {
+        "start": 1766505550,
+        "finish": 1766505550.645354,
+        "duration": 0.6453540325164795,
+        "processing": 0,
+        "date_start": "2025-12-23T18:59:10+03:00",
+        "date_finish": "2025-12-23T18:59:10+03:00",
+        "operating_reset_at": 1766506150,
+        "operating": 0
+      }
+    },
+    "_status": 200,
+    "_query": {
+      "method": "im.chat.user.add",
+      "params": {
+        "USER_ID": [
+          18803
+        ],
+        "CHAT_ID": 36869
+      },
+      "start": 0
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { BitrixInstance, OpenLineChat, CalendarEvent, Contact, Item, CrmType, ImBot, Deal, ActivityForm, OpenLineDialog, OpenLine, OpenLineMessage, CustomMessageBuilder, } from "../bitrix/index.js";
+import { BitrixInstance, OpenLineChat, CalendarEvent, Contact, Item, CrmType, ImBot, Deal, ActivityForm, OpenLineDialog, OpenLine, OpenLineOperator, OpenLineMessage, CustomMessageBuilder, } from "../bitrix/index.js";
 import { WebhookController } from "./WebhookController.js";
 const $b24 = new BitrixInstance({
     b24Url: process.env.BITRIX_WEBHOOK_URL,
@@ -206,7 +206,19 @@ async function getDeal() {
     const deal = await new Deal($b24).get(1000).catch((error) => console.log("error"));
     console.log(deal);
 }
-getDeal();
+async function removeChatUser(chatId, userId) {
+    await new OpenLineOperator($b24).takesChat(chatId).catch((error) => console.log(error));
+    const chatUser = await new OpenLineChat($b24).removeChatUser(chatId, userId).catch((error) => console.log(error));
+    $b24.setLog(true);
+    const responseAdd = await new OpenLineChat($b24).requestData("im.chat.user.add", {
+        USERS: [userId],
+        CHAT_ID: chatId,
+        IM_CHAT_EXTEND: "Y",
+    }, "result");
+    console.log(responseAdd);
+}
+await removeChatUser(36869, 18803);
+//getDeal();
 //getByChatId();
 //sendFormMessageIntoDialog();
 //updateReadStatusMessage();

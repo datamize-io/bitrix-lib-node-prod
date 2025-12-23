@@ -1,6 +1,6 @@
 {
   "name": "@datamize-io/bitrix-lib-node",
-  "version": "1.0.60",
+  "version": "1.0.61",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,6 +19,7 @@
   "description": "",
   "dependencies": {
     "@bitrix24/b24jssdk": "^0.4.3",
+    "@datamize-io/bitrix-lib-node": "github:datamize-io/bitrix-lib-node-prod#main",
     "dotenv": "^16.5.0"
   },
   "devDependencies": {

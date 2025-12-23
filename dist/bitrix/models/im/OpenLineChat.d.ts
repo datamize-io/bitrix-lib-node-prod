@@ -49,6 +49,7 @@ export declare class OpenLineChat extends OpenLineChatBuilder {
      * ```
      */
     addUser(entity: "LEAD" | "DEAL" | "CONTACT" | "COMPANY", id: string | number, userId: string | number, chatId?: string | number): Promise<any>;
+    addChatUser(chatId: string | number, userId: string | number): Promise<any>;
     /**
      * Remove um usuário de um chat de OpenLine relacionado a uma entidade do CRM.
      *
@@ -64,6 +65,19 @@ export declare class OpenLineChat extends OpenLineChatBuilder {
      * ```
      */
     removeUser(entity: "LEAD" | "DEAL" | "CONTACT" | "COMPANY", id: string | number, userId: string | number, chatId?: string | number): Promise<any>;
+    /**
+     * Remove um usuário de um chat de OpenLine, independente de CRM.
+     *
+     * @param chatId - (Opcional) ID do chat. Se omitido, será utilizado o chat atual da instância.
+     * @param userId - ID do usuário a ser removido do chat.
+     * @returns Resultado da requisição.
+     *
+     * @example
+     * ```ts
+     * await openLine.removeChatUser(999, 1001);
+     * ```
+     */
+    removeChatUser(chatId: string | number, userId: string | number): Promise<any>;
     /**
      * Realiza a coleta de dados de chat via método `imopenlines.crm.chat.get`.
      *

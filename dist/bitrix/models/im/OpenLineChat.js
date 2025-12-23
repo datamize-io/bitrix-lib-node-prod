@@ -72,6 +72,12 @@ export class OpenLineChat extends OpenLineChatBuilder {
             CHAT_ID: chatId,
         }, "result");
     }
+    async addChatUser(chatId, userId) {
+        return await this.requestData("im.chat.user.add", {
+            USER_ID: [userId],
+            CHAT_ID: chatId,
+        }, "result");
+    }
     /**
      * Remove um usuário de um chat de OpenLine relacionado a uma entidade do CRM.
      *
@@ -91,6 +97,25 @@ export class OpenLineChat extends OpenLineChatBuilder {
         return await this.requestData("imopenlines.crm.chat.user.delete", {
             CRM_ENTITY_TYPE: entity,
             CRM_ENTITY: id,
+            USER_ID: userId,
+            CHAT_ID: chatId,
+        }, "result");
+    }
+    /**
+     * Remove um usuário de um chat de OpenLine, independente de CRM.
+     *
+     * @param chatId - (Opcional) ID do chat. Se omitido, será utilizado o chat atual da instância.
+     * @param userId - ID do usuário a ser removido do chat.
+     * @returns Resultado da requisição.
+     *
+     * @example
+     * ```ts
+     * await openLine.removeChatUser(999, 1001);
+     * ```
+     */
+    async removeChatUser(chatId, userId) {
+        chatId = chatId || this.getData()["CHAT_ID"];
+        return await this.requestData("im.chat.user.delete", {
             USER_ID: userId,
             CHAT_ID: chatId,
         }, "result");
