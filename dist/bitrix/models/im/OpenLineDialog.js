@@ -18,10 +18,9 @@ export class OpenLineDialog extends OpenLineDialogBuilder {
      * @returns Histórico da sessão.
      */
     async getHistory(chatId, sessionId) {
-        return await this.requestAndPatch("imopenlines.session.history.get", {
-            CHAT_ID: chatId,
-            SESSION_ID: sessionId,
-        });
+        const payloadHistory = { CHAT_ID: chatId };
+        payloadHistory.SESSION_ID = sessionId;
+        return await this.requestAndPatch("imopenlines.session.history.get", payloadHistory);
     }
     /**
      * Inicia uma nova sessão no chat.
