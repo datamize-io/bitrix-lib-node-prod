@@ -19,7 +19,9 @@ export class OpenLineDialog extends OpenLineDialogBuilder {
      */
     async getHistory(chatId, sessionId) {
         const payloadHistory = { CHAT_ID: chatId };
-        payloadHistory.SESSION_ID = sessionId;
+        if (sessionId) {
+            payloadHistory.SESSION_ID = sessionId;
+        }
         return await this.requestAndPatch("imopenlines.session.history.get", payloadHistory);
     }
     /**
