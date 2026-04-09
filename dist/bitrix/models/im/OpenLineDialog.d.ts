@@ -18,7 +18,7 @@ export declare class OpenLineDialog extends OpenLineDialogBuilder implements Ope
      *
      * @returns Histórico da sessão.
      */
-    getHistory(chatId: string | number, sessionId?: string | number | undefined): Promise<any>;
+    getHistory(chatId?: string | number | undefined, sessionId?: string | number | undefined): Promise<any>;
     /**
      * Inicia uma nova sessão no chat.
      *

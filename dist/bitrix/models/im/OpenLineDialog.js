@@ -18,10 +18,14 @@ export class OpenLineDialog extends OpenLineDialogBuilder {
      * @returns Histórico da sessão.
      */
     async getHistory(chatId, sessionId) {
-        const payloadHistory = { CHAT_ID: chatId };
-        if (sessionId) {
-            payloadHistory.SESSION_ID = sessionId;
+        const payloadHistory = {};
+        if (!chatId && !sessionId) {
+            throw new Error("Para recuperar o histórico, é necessário fornecer pelo menos o CHAT_ID ou o SESSION_ID.");
         }
+        if (chatId)
+            payloadHistory.CHAT_ID = chatId;
+        if (sessionId)
+            payloadHistory.SESSION_ID = sessionId;
         return await this.requestAndPatch("imopenlines.session.history.get", payloadHistory);
     }
     /**
